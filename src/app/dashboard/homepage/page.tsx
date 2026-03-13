@@ -15,7 +15,7 @@ export default function HomepageAdminPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Ana Sayfa Yönetimi</h1>
-          <p className="text-gray-500 mt-1">Sadece kullanılan alanlar burada listelenir.</p>
+          <p className="text-gray-900 mt-1">Sadece kullanılan alanlar burada listelenir.</p>
         </div>
         <div className="flex flex-wrap items-center gap-2">
           <Link

@@ -129,18 +129,18 @@ export default function FooterEditor({
   }
 
   if (!data) {
-    return <div className="p-6"><div className="bg-red-50 text-red-600 p-4 rounded-lg">Veri yüklenemedi.</div></div>;
+    return <div><div className="bg-red-50 text-red-600 p-4 rounded-lg">Veri yüklenemedi.</div></div>;
   }
 
   const inputClass = "w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:border-transparent outline-none text-slate-900";
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-4xl mx-auto">
       <ToastContainer position="top-right" autoClose={3000} />
 
       <div className="mb-8">
         <h1 className="text-2xl font-bold text-slate-900">{pageTitle}</h1>
-        <p className="text-slate-500 text-sm mt-1">{pageDescription}</p>
+        <p className="text-slate-900 text-sm mt-1">{pageDescription}</p>
       </div>
 
       <form onSubmit={save} className="space-y-8">
@@ -203,7 +203,7 @@ export default function FooterEditor({
               onChange={(e) => setData({ ...data, newsletterTitle: e.target.value })}
               placeholder="Her satır ayrı bir satır olarak görünecek..."
             />
-            <p className="text-xs text-slate-400 mt-1">Her satır ayrı bir satır olarak gösterilir.</p>
+            <p className="text-xs text-slate-700 mt-1">Her satır ayrı bir satır olarak gösterilir.</p>
           </div>
         </div>
 
@@ -242,7 +242,7 @@ export default function FooterEditor({
                 </button>
               </div>
             ))}
-            {workingHours.length === 0 && <p className="text-slate-400 text-sm">Henüz çalışma saati eklenmemiş.</p>}
+            {workingHours.length === 0 && <p className="text-slate-700 text-sm">Henüz çalışma saati eklenmemiş.</p>}
           </div>
         </div>
 
@@ -264,7 +264,7 @@ export default function FooterEditor({
                 </button>
               </div>
             ))}
-            {topLinks.length === 0 && <p className="text-slate-400 text-sm">Henüz link eklenmemiş.</p>}
+            {topLinks.length === 0 && <p className="text-slate-700 text-sm">Henüz link eklenmemiş.</p>}
           </div>
         </div>
 
@@ -286,7 +286,7 @@ export default function FooterEditor({
                 </button>
               </div>
             ))}
-            {serviceLinks.length === 0 && <p className="text-slate-400 text-sm">Henüz link eklenmemiş.</p>}
+            {serviceLinks.length === 0 && <p className="text-slate-700 text-sm">Henüz link eklenmemiş.</p>}
           </div>
         </div>
 

@@ -168,12 +168,12 @@ export default function LogisticsProcessAdmin() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-4xl mx-auto">
       <ToastContainer position="top-right" autoClose={3000} />
 
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-slate-900">How We Work Yönetimi</h2>
-        <p className="text-slate-500 text-sm mt-1">
+        <p className="text-slate-900 text-sm mt-1">
           Süreç adımlarının başlıklarını, açıklamalarını ve görsel ayarlarını buradan yönetin.
         </p>
       </div>
@@ -256,7 +256,7 @@ export default function LogisticsProcessAdmin() {
               <div>
                 <h4 className="font-semibold text-slate-900">{step.title}</h4>
                 <div className="flex items-center gap-2 mt-0.5">
-                  <span className="text-xs text-slate-400">
+                  <span className="text-xs text-slate-700">
                     {step.isDark ? "Koyu" : step.colorTheme} tema
                   </span>
                   {step.hasImage && <span className="text-xs text-blue-500">• Görselli</span>}
@@ -323,21 +323,21 @@ export default function LogisticsProcessAdmin() {
               <label className="text-slate-900 font-medium text-sm" htmlFor="step-title">Başlık</label>
               <input id="step-title" name="title" value={editing.title} onChange={handleStepChange}
                 placeholder="Ör: Order Placement"
-                className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" />
+                className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" />
             </div>
 
             <div className="flex flex-col gap-1.5">
               <label className="text-slate-900 font-medium text-sm" htmlFor="step-desc">Açıklama</label>
               <textarea id="step-desc" name="description" value={editing.description} onChange={handleStepChange}
                 rows={3}
-                className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none" />
+                className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none" />
             </div>
 
             <div className="flex flex-col gap-1.5">
               <label className="text-slate-900 font-medium text-sm" htmlFor="step-badge">Rozet Metni (ikonlu kart altı)</label>
               <input id="step-badge" name="badgeText" value={editing.badgeText} onChange={handleStepChange}
                 placeholder="Ör: Optimized Routes"
-                className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" />
+                className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" />
             </div>
 
             {/* Toggles */}
@@ -367,16 +367,16 @@ export default function LogisticsProcessAdmin() {
                   <label className="text-slate-900 font-medium text-sm" htmlFor="step-image">veya Görsel URL</label>
                   <input id="step-image" name="image" value={editing.image} onChange={handleStepChange}
                     placeholder="https://..."
-                    className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" />
+                    className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" />
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <label className="text-slate-900 font-medium text-sm" htmlFor="step-imgalt">Görsel Alt Metin</label>
                   <input id="step-imgalt" name="imageAlt" value={editing.imageAlt} onChange={handleStepChange}
-                    className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" />
+                    className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" />
                 </div>
                 {editing.image && !file && (
                   <div>
-                    <span className="text-xs text-slate-500 mb-1 block">Mevcut görsel:</span>
+                    <span className="text-xs text-slate-900 mb-1 block">Mevcut görsel:</span>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={editing.image} alt={editing.imageAlt || ""} className="w-full max-h-32 object-cover rounded-lg border" />
                   </div>

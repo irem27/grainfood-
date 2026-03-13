@@ -1,9 +1,13 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
+import prisma from "@/lib/prisma";
 
-const prisma = new PrismaClient();
+const authSecret = process.env.NEXTAUTH_SECRET;
+
+if (!authSecret && process.env.NODE_ENV === "production") {
+  throw new Error("NEXTAUTH_SECRET must be set in production");
+}
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -14,10 +18,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        console.log("Auth attempt with:", credentials?.email);
-        
         if (!credentials?.email || !credentials?.password) {
-          console.log("Missing credentials");
           return null;
         }
 
@@ -25,10 +26,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           where: { email: credentials.email as string },
         });
 
-        console.log("User found:", user?.email);
-
         if (!user || !user.isActive) {
-          console.log("User not found or inactive");
           return null;
         }
 
@@ -36,8 +34,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           credentials.password as string,
           user.password
         );
-
-        console.log("Password valid:", isPasswordValid);
 
         if (!isPasswordValid) {
           return null;
@@ -75,6 +71,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     strategy: "jwt",
   },
   trustHost: true,
-  secret: process.env.NEXTAUTH_SECRET || "alamira-super-secret-key-2026",
+  secret: authSecret,
   debug: process.env.NODE_ENV === "development",
 });

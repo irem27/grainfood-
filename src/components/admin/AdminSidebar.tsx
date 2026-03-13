@@ -72,6 +72,20 @@ const homepageGroup: MenuGroup = {
         </svg>
       ),
     },
+    {
+      title: "Contact",
+      href: "/dashboard/homepage/contact",
+      icon: (
+        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+          />
+        </svg>
+      ),
+    },
   ],
 };
 
@@ -163,20 +177,6 @@ const alamiraGroup: MenuGroup = {
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 5h16a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1z" />
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 15h18" />
-        </svg>
-      ),
-    },
-    {
-      title: "Contact",
-      href: "/dashboard/alamira/contact",
-      icon: (
-        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-          />
         </svg>
       ),
     },
@@ -370,11 +370,10 @@ export default function AdminSidebar() {
     <aside
       className={`bg-slate-900 min-h-screen flex flex-col transition-all duration-300 ${
         isCollapsed ? "w-20" : "w-64"
-      } text-[#1a1a1a] border-[#ccc]`}
-      style={{ color: '#1a1a1a', borderColor: '#ccc' }}
+      }`}
     >
       {/* Logo */}
-      <div className="p-4 border-b border-[#ccc]">
+      <div className="p-4 border-b border-slate-700">
         <Link href="/dashboard" className="flex items-center gap-3">
           <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
             <svg className="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor">
@@ -395,7 +394,7 @@ export default function AdminSidebar() {
       <button
         type="button"
         onClick={() => setIsCollapsed((v) => !v)}
-        className="w-full p-3 text-[#1a1a1a] hover:text-white hover:bg-slate-800 transition-colors flex items-center justify-center"
+        className="w-full p-3 text-slate-300 hover:text-white hover:bg-slate-800 transition-colors flex items-center justify-center"
       >
         <svg
           className={`w-5 h-5 transition-transform ${isCollapsed ? "rotate-180" : ""}`}
@@ -408,7 +407,7 @@ export default function AdminSidebar() {
       </button>
 
       {/* Navigation */}
-      <nav className="p-4 flex-1 overflow-y-auto border-[#ccc]" style={{ color: '#1a1a1a', borderColor: '#ccc' }}>
+      <nav className="p-4 flex-1 overflow-y-auto">
         {/* Main Menu Items */}
         <ul className="space-y-2">
           {mainMenuItems.map((item) => {
@@ -420,7 +419,7 @@ export default function AdminSidebar() {
                   className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                     isActive
                       ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white"
-                      : "text-slate-400 hover:text-white hover:bg-slate-800"
+                      : "text-slate-300 hover:text-white hover:bg-slate-800"
                   }`}
                 >
                   {item.icon}
@@ -437,7 +436,7 @@ export default function AdminSidebar() {
             type="button"
             onClick={() => setIsHomepageOpen((v) => !v)}
             className={`w-full flex items-center justify-between gap-3 px-4 py-3 rounded-lg transition-colors ${
-              isHomepageActive ? "bg-blue-500/20 text-blue-400" : "text-slate-400 hover:text-white hover:bg-slate-800"
+              isHomepageActive ? "bg-blue-500/20 text-blue-400" : "text-slate-300 hover:text-white hover:bg-slate-800"
             }`}
           >
             <div className="flex items-center gap-3">
@@ -466,7 +465,7 @@ export default function AdminSidebar() {
                     <Link
                       href={item.href}
                       className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors ${
-                        isActive ? "bg-blue-500 text-white" : "text-slate-400 hover:text-white hover:bg-slate-800"
+                        isActive ? "bg-blue-500 text-white" : "text-slate-300 hover:text-white hover:bg-slate-800"
                       }`}
                     >
                       {item.icon}
@@ -482,7 +481,7 @@ export default function AdminSidebar() {
         {/* Projects label */}
         <div className="mt-6">
           {!isCollapsed && (
-            <div className="px-4 py-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <div className="px-4 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">
               Projeler
             </div>
           )}
@@ -492,7 +491,7 @@ export default function AdminSidebar() {
             type="button"
             onClick={() => setIsAlamiraOpen((v) => !v)}
             className={`w-full flex items-center justify-between gap-3 px-4 py-3 rounded-lg transition-colors ${
-              isAlamiraActive ? "bg-[#D4A853]/20 text-[#D4A853]" : "text-slate-400 hover:text-white hover:bg-slate-800"
+              isAlamiraActive ? "bg-[#D4A853]/20 text-[#D4A853]" : "text-slate-300 hover:text-white hover:bg-slate-800"
             }`}
           >
             <div className="flex items-center gap-3">
@@ -521,7 +520,7 @@ export default function AdminSidebar() {
                     <Link
                       href={item.href}
                       className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors ${
-                        isActive ? "bg-[#D4A853] text-slate-900" : "text-slate-400 hover:text-white hover:bg-slate-800"
+                        isActive ? "bg-[#D4A853] text-slate-900" : "text-slate-300 hover:text-white hover:bg-slate-800"
                       }`}
                     >
                       {item.icon}
@@ -539,7 +538,7 @@ export default function AdminSidebar() {
               type="button"
               onClick={() => setIsLogisticsOpen((v) => !v)}
               className={`w-full flex items-center justify-between gap-3 px-4 py-3 rounded-lg transition-colors ${
-                isLogisticsActive ? "bg-emerald-500/20 text-emerald-500" : "text-slate-400 hover:text-white hover:bg-slate-800"
+                isLogisticsActive ? "bg-emerald-500/20 text-emerald-500" : "text-slate-300 hover:text-white hover:bg-slate-800"
               }`}
             >
               <div className="flex items-center gap-3">
@@ -568,7 +567,7 @@ export default function AdminSidebar() {
                       <Link
                         href={item.href}
                         className={`flex items-center gap-3 px-4 py-2.5 rounded-lg transition-colors ${
-                          isActive ? "bg-emerald-500 text-white" : "text-slate-400 hover:text-white hover:bg-slate-800"
+                          isActive ? "bg-emerald-500 text-white" : "text-slate-300 hover:text-white hover:bg-slate-800"
                         }`}
                       >
                         {item.icon}
@@ -583,9 +582,9 @@ export default function AdminSidebar() {
         </div>
 
         {/* Bottom Menu Items */}
-        <div className="mt-6 pt-6 border-t border-[#ccc]">
+        <div className="mt-6 pt-6 border-t border-slate-700">
           {!isCollapsed && (
-            <div className="px-4 py-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">
+            <div className="px-4 py-2 text-xs font-semibold text-slate-400 uppercase tracking-wider">
               Sistem
             </div>
           )}
@@ -599,7 +598,7 @@ export default function AdminSidebar() {
                     className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
                       isActive
                         ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white"
-                        : "text-slate-400 hover:text-white hover:bg-slate-800"
+                        : "text-slate-300 hover:text-white hover:bg-slate-800"
                     }`}
                   >
                     {item.icon}
@@ -613,11 +612,11 @@ export default function AdminSidebar() {
       </nav>
 
       {/* Logout */}
-      <div className="mt-auto p-4 border-t border-[#ccc]">
+      <div className="mt-auto p-4 border-t border-slate-700">
         <button
           type="button"
           onClick={() => signOut({ callbackUrl: "/login" })}
-          className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+          className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-slate-300 hover:text-white hover:bg-slate-800 transition-colors"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path

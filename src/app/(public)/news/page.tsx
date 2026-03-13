@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import prisma from "@/lib/prisma";
 import NewsListContent from "./NewsListContent";
 
+export const dynamic = "force-dynamic";
+
 export const metadata: Metadata = {
   title: "News | Logistics",
   description: "Alle Neuigkeiten und Updates aus dem Bereich Logistik.",

@@ -179,15 +179,15 @@ export default function LogisticsNewsAdmin() {
     );
   }
 
-  const inputClass = "border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none";
+  const inputClass = "border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none";
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-4xl mx-auto">
       <ToastContainer position="top-right" autoClose={3000} />
 
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-slate-900">Latest News Yönetimi</h2>
-        <p className="text-slate-500 text-sm mt-1">Haber kartlarını ve bölüm başlığını buradan yönetin.</p>
+        <p className="text-slate-900 text-sm mt-1">Haber kartlarını ve bölüm başlığını buradan yönetin.</p>
       </div>
 
       {/* Section Settings */}
@@ -227,7 +227,7 @@ export default function LogisticsNewsAdmin() {
               <div className="min-w-0">
                 <h4 className="font-semibold text-slate-900 truncate max-w-md">{article.title}</h4>
                 <div className="flex items-center gap-3 mt-0.5">
-                  <span className="text-xs text-slate-400">Sıra: {article.order}</span>
+                  <span className="text-xs text-slate-700">Sıra: {article.order}</span>
                   {article.slug && (
                     <span className="text-xs text-blue-500 font-mono">/news/{article.slug}</span>
                   )}
@@ -244,7 +244,7 @@ export default function LogisticsNewsAdmin() {
             </div>
           </div>
         ))}
-        {articles.length === 0 && <p className="text-center text-slate-400 py-10">Henüz haber eklenmemiş.</p>}
+        {articles.length === 0 && <p className="text-center text-slate-700 py-10">Henüz haber eklenmemiş.</p>}
       </div>
 
       {/* Edit / Create Article Form */}
@@ -274,7 +274,7 @@ export default function LogisticsNewsAdmin() {
 
             <div className="flex flex-col gap-1.5">
               <label className="text-slate-900 font-medium text-sm" htmlFor="art-content">
-                İçerik <span className="text-xs text-slate-400 font-normal">(HTML desteklenir)</span>
+                İçerik <span className="text-xs text-slate-700 font-normal">(HTML desteklenir)</span>
               </label>
               <textarea id="art-content" name="content" value={editing.content} onChange={handleArticleChange} rows={10} placeholder="<p>Haber içeriği...</p>" className={`${inputClass} resize-y font-mono text-sm`} />
             </div>
@@ -291,7 +291,7 @@ export default function LogisticsNewsAdmin() {
 
             {editing.image && !file && (
               <div>
-                <span className="text-xs text-slate-500 mb-1 block">Mevcut görsel:</span>
+                <span className="text-xs text-slate-900 mb-1 block">Mevcut görsel:</span>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={editing.image} alt={editing.imageAlt || ""} className="w-full max-h-40 object-cover rounded-lg border" />
               </div>

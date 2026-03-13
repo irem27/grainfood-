@@ -134,12 +134,12 @@ export default function LogisticsStatsAdmin() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-4xl mx-auto">
       <ToastContainer position="top-right" autoClose={3000} />
 
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-slate-900">Logistics Stats Yönetimi</h2>
-        <p className="text-slate-500 text-sm mt-1">
+        <p className="text-slate-900 text-sm mt-1">
           &quot;Let&apos;s See Our Progress&quot; bölümünün içeriğini ve istatistik kartlarını buradan yönetin.
         </p>
       </div>
@@ -156,7 +156,7 @@ export default function LogisticsStatsAdmin() {
               value={section?.title ?? ""}
               onChange={handleSectionChange}
               placeholder="Let's See Our Progress"
-              className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+              className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
             />
           </div>
           <div className="flex flex-col gap-1.5">
@@ -167,7 +167,7 @@ export default function LogisticsStatsAdmin() {
               value={section?.description ?? ""}
               onChange={handleSectionChange}
               rows={3}
-              className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none"
+              className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none"
             />
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
@@ -178,7 +178,7 @@ export default function LogisticsStatsAdmin() {
                 name="buttonText"
                 value={section?.buttonText ?? ""}
                 onChange={handleSectionChange}
-                className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
               />
             </div>
             <div className="flex flex-col gap-1.5">
@@ -188,7 +188,7 @@ export default function LogisticsStatsAdmin() {
                 name="buttonLink"
                 value={section?.buttonLink ?? ""}
                 onChange={handleSectionChange}
-                className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
               />
             </div>
           </div>
@@ -224,7 +224,7 @@ export default function LogisticsStatsAdmin() {
               <span className="text-2xl font-extrabold text-[#0C1D36]">
                 {item.value.toLocaleString()}{item.suffix}
               </span>
-              <p className="text-sm text-slate-500 mt-1">{item.label}</p>
+              <p className="text-sm text-slate-900 mt-1">{item.label}</p>
             </div>
             <div className="flex items-center gap-2">
               <button
@@ -263,7 +263,7 @@ export default function LogisticsStatsAdmin() {
                   value={editingItem.value}
                   onChange={handleItemChange}
                   placeholder="323"
-                  className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                 />
               </div>
               <div className="flex flex-col gap-1.5">
@@ -274,7 +274,7 @@ export default function LogisticsStatsAdmin() {
                   value={editingItem.suffix}
                   onChange={handleItemChange}
                   placeholder="K, M, +, %"
-                  className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                 />
               </div>
               <div className="flex flex-col gap-1.5">
@@ -285,7 +285,7 @@ export default function LogisticsStatsAdmin() {
                   value={editingItem.label}
                   onChange={handleItemChange}
                   placeholder="Shipments Delivered"
-                  className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                 />
               </div>
               <div className="flex flex-col gap-1.5">
@@ -296,7 +296,7 @@ export default function LogisticsStatsAdmin() {
                   type="number"
                   value={editingItem.order}
                   onChange={handleItemChange}
-                  className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                 />
               </div>
             </div>

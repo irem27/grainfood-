@@ -109,7 +109,7 @@ export default function GrainfoodHeroAdmin() {
   };
 
   return (
-    <div className="max-w-xl mx-auto p-6">
+    <div className="max-w-xl mx-auto">
       <ToastContainer position="top-right" autoClose={3000} />
 
       <h2 className="text-2xl font-bold mb-4 text-slate-900">
@@ -127,7 +127,7 @@ export default function GrainfoodHeroAdmin() {
             value={hero.title}
             onChange={handleChange}
             placeholder="Başlık"
-            className="border border-slate-300 rounded p-2 text-slate-900 placeholder:text-slate-400"
+            className="border border-slate-300 rounded p-2 text-slate-900 placeholder:text-black"
           />
         </div>
 
@@ -142,7 +142,7 @@ export default function GrainfoodHeroAdmin() {
             onChange={handleChange}
             placeholder="Açıklama"
             rows={5}
-            className="border border-slate-300 rounded p-2 text-slate-900 placeholder:text-slate-400"
+            className="border border-slate-300 rounded p-2 text-slate-900 placeholder:text-black"
           />
         </div>
 
@@ -162,7 +162,7 @@ export default function GrainfoodHeroAdmin() {
           {/* Existing image preview */}
           {hero.image && !file && (
             <div className="mt-2">
-              <div className="text-sm text-slate-600 mb-2">Mevcut görsel:</div>
+              <div className="text-sm text-slate-900 mb-2">Mevcut görsel:</div>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={hero.image}
@@ -174,7 +174,7 @@ export default function GrainfoodHeroAdmin() {
 
           {/* New file preview (optional) */}
           {file && (
-            <div className="mt-2 text-sm text-slate-600">
+            <div className="mt-2 text-sm text-slate-900">
               Seçilen dosya: <span className="font-medium">{file.name}</span>
             </div>
           )}

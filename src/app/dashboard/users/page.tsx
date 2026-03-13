@@ -171,12 +171,12 @@ export default function UsersPage() {
   }
 
   return (
-    <div className="p-8">
+    <div>
       {/* Header */}
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Kullanıcı Yönetimi</h1>
-          <p className="text-gray-600 mt-1">Admin kullanıcılarını yönetin</p>
+          <p className="text-gray-900 mt-1">Admin kullanıcılarını yönetin</p>
         </div>
         <button
           onClick={openAddModal}
@@ -201,19 +201,19 @@ export default function UsersPage() {
         <table className="w-full">
           <thead className="bg-gray-50 border-b border-gray-200">
             <tr>
-              <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-4 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                 Kullanıcı
               </th>
-              <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-4 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                 Rol
               </th>
-              <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-4 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                 Durum
               </th>
-              <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-4 text-left text-xs font-medium text-gray-900 uppercase tracking-wider">
                 Kayıt Tarihi
               </th>
-              <th className="px-6 py-4 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+              <th className="px-6 py-4 text-right text-xs font-medium text-gray-900 uppercase tracking-wider">
                 İşlemler
               </th>
             </tr>
@@ -228,7 +228,7 @@ export default function UsersPage() {
                     </div>
                     <div className="ml-4">
                       <div className="text-sm font-medium text-gray-900">{user.name || "-"}</div>
-                      <div className="text-sm text-gray-500">{user.email}</div>
+                      <div className="text-sm text-gray-900">{user.email}</div>
                     </div>
                   </div>
                 </td>
@@ -249,7 +249,7 @@ export default function UsersPage() {
                     {user.isActive ? "Aktif" : "Pasif"}
                   </button>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                   {new Date(user.createdAt).toLocaleDateString("tr-TR")}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -272,7 +272,7 @@ export default function UsersPage() {
         </table>
 
         {users.length === 0 && (
-          <div className="text-center py-12 text-gray-500">
+          <div className="text-center py-12 text-gray-900">
             Henüz kullanıcı bulunmuyor
           </div>
         )}

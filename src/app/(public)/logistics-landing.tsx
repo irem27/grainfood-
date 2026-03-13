@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, type FormEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -80,14 +80,19 @@ type NewsArticleData = {
   link: string | null;
 };
 
+type PublicSettings = {
+  logisticsContactEmail: string | null;
+  logisticsContactPhone: string | null;
+};
+
 /* ============================================================
    DATA
    ============================================================ */
 
 const FALLBACK_MARQUEE = [
-  "LogiCraft", "Shipping", "Delivery", "Logistics",
-  "LogiCraft", "Budget", "Delivery", "LogiCraft",
-  "Shipping", "Delivery", "Logistics", "LogiCraft",
+  "Grainfood", "Shipping", "Delivery", "Logistics",
+  "Grainfood", "Budget", "Delivery", "Grainfood",
+  "Shipping", "Delivery", "Logistics", "Grainfood",
 ];
 
 /* ============================================================
@@ -187,18 +192,74 @@ export default function LogisticsLandingPage() {
   const [newsSection, setNewsSection] = useState<NewsSectionData | null>(null);
   const [newsArticles, setNewsArticles] = useState<NewsArticleData[]>([]);
   const [marqueeWords, setMarqueeWords] = useState<string[]>([]);
+  const [publicSettings, setPublicSettings] = useState<PublicSettings | null>(null);
+
+  /* Angebotformular state */
+  const [angebotForm, setAngebotForm] = useState({
+    firmenname: "",
+    ansprechpartner: "",
+    adresse: "",
+    email: "",
+    telefonnummer: "",
+    artDerWare: [] as string[],
+  });
+  const [angebotStatus, setAngebotStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+
+  const handleAngebotChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setAngebotForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleWareToggle = (ware: string) => {
+    setAngebotForm((prev) => ({
+      ...prev,
+      artDerWare: prev.artDerWare.includes(ware)
+        ? prev.artDerWare.filter((w) => w !== ware)
+        : [...prev.artDerWare, ware],
+    }));
+  };
+
+  const handleAngebotSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    if (!angebotForm.firmenname || !angebotForm.email || !angebotForm.ansprechpartner) return;
+    setAngebotStatus("loading");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: angebotForm.firmenname,
+          email: angebotForm.email,
+          phone: angebotForm.telefonnummer,
+          message: `Angebotformular\n\nFirmenname: ${angebotForm.firmenname}\nAnsprechpartner: ${angebotForm.ansprechpartner}\nAdresse: ${angebotForm.adresse}\nE-Mail: ${angebotForm.email}\nTelefonnummer: ${angebotForm.telefonnummer}\nArt der Ware: ${angebotForm.artDerWare.join(", ") || "—"}`,
+        }),
+      });
+      if (res.ok) {
+        setAngebotStatus("success");
+        setAngebotForm({ firmenname: "", ansprechpartner: "", adresse: "", email: "", telefonnummer: "", artDerWare: [] });
+        setTimeout(() => setAngebotStatus("idle"), 4000);
+      } else {
+        setAngebotStatus("error");
+        setTimeout(() => setAngebotStatus("idle"), 4000);
+      }
+    } catch {
+      setAngebotStatus("error");
+      setTimeout(() => setAngebotStatus("idle"), 4000);
+    }
+  };
 
   useEffect(() => {
     let mounted = true;
     (async () => {
       try {
-        const [heroRes, servicesRes, statsRes, processRes, newsRes, marqueeRes] = await Promise.all([
+        const [heroRes, servicesRes, statsRes, processRes, newsRes, marqueeRes, settingsRes] = await Promise.all([
           fetch("/api/admin/logistics/hero"),
           fetch("/api/admin/logistics/services"),
           fetch("/api/admin/logistics/stats"),
           fetch("/api/admin/logistics/process"),
           fetch("/api/admin/logistics/news"),
           fetch("/api/admin/logistics/marquee"),
+          fetch("/api/settings"),
         ]);
         if (mounted) {
           if (heroRes.ok) setHero(await heroRes.json());
@@ -211,6 +272,7 @@ export default function LogisticsLandingPage() {
             if (stData.section) setStatsSection(stData.section);
             if (Array.isArray(stData.items)) setStatItems(stData.items);
           }
+          if (settingsRes.ok) setPublicSettings(await settingsRes.json());
           if (processRes.ok) {
             const pData = await processRes.json();
             if (pData.section) setProcessSection(pData.section);
@@ -230,6 +292,9 @@ export default function LogisticsLandingPage() {
     })();
     return () => { mounted = false; };
   }, []);
+
+  const logisticsContactEmail = publicSettings?.logisticsContactEmail || "info@logicraft.de";
+  const logisticsContactPhone = publicSettings?.logisticsContactPhone || "+49 (0) 123 456 789";
 
   const marquee = marqueeWords.length > 0 ? marqueeWords : FALLBACK_MARQUEE;
 
@@ -274,7 +339,7 @@ export default function LogisticsLandingPage() {
                       {hero?.badge ?? "Leading Logistics Provider"}
                     </p>
                     <h1 className="text-white text-[40px] sm:text-[52px] lg:text-[68px] font-extrabold leading-[1.05] mb-3 tracking-tight">
-                      {hero?.title ?? "LOGI CRAFT"}
+                      {hero?.title ?? "GRAINFOOD"}
                     </h1>
                     <p className="text-white/90 text-lg sm:text-xl lg:text-2xl font-medium mb-5 italic">
                       {hero?.subtitle ?? "Crafting Your Logistics Success"}
@@ -782,6 +847,205 @@ export default function LogisticsLandingPage() {
                   </div>
                 </article>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ========== ANGEBOTFORMULAR ========== */}
+        <section
+          className="py-16 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10 bg-[#FAFBFF]"
+          aria-label="Angebotformular"
+        >
+          <div className="max-w-[1320px] mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+              {/* Left – Info */}
+              <div>
+                <p className="text-[#f06721] text-xs sm:text-sm font-medium tracking-widest uppercase mb-4">
+                  Kontakt
+                </p>
+                <h2 className="text-[28px] sm:text-[32px] lg:text-[40px] font-extrabold text-[#1a214f] mb-5 leading-[1.15] tracking-tight">
+                  Angebotformular
+                </h2>
+                <p className="text-gray-500 text-[15px] sm:text-base leading-relaxed max-w-lg mb-8">
+                  Fordern Sie jetzt Ihr individuelles Angebot an. Füllen Sie das Formular aus und wir melden uns schnellstmöglich bei Ihnen.
+                </p>
+                <div className="flex items-center gap-4 mb-5">
+                  <div className="w-12 h-12 rounded-2xl bg-[#f06721]/10 flex items-center justify-center flex-shrink-0">
+                    <svg className="w-5 h-5 text-[#f06721]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-[#1a214f] font-semibold text-sm">E-Mail</p>
+                    <p className="text-gray-500 text-sm">{logisticsContactEmail}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-[#f06721]/10 flex items-center justify-center flex-shrink-0">
+                    <svg className="w-5 h-5 text-[#f06721]" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-[#1a214f] font-semibold text-sm">Telefon</p>
+                    <p className="text-gray-500 text-sm">{logisticsContactPhone}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right – Form */}
+              <div className="bg-white rounded-[24px] p-7 sm:p-10 shadow-xl shadow-[#1a214f]/5 border border-gray-100">
+                <form onSubmit={handleAngebotSubmit} className="space-y-5">
+                  {/* Firmenname */}
+                  <div>
+                    <label htmlFor="firmenname" className="block text-[#1a214f] text-sm font-semibold mb-1.5">
+                      Firmenname <span className="text-[#f06721]">*</span>
+                    </label>
+                    <input
+                      id="firmenname"
+                      name="firmenname"
+                      type="text"
+                      required
+                      value={angebotForm.firmenname}
+                      onChange={handleAngebotChange}
+                      placeholder="Ihre Firma"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-800 placeholder-gray-400 outline-none focus:border-[#f06721] focus:ring-2 focus:ring-[#f06721]/10 transition-all"
+                    />
+                  </div>
+
+                  {/* Ansprechpartner */}
+                  <div>
+                    <label htmlFor="ansprechpartner" className="block text-[#1a214f] text-sm font-semibold mb-1.5">
+                      Ansprechpartner <span className="text-[#f06721]">*</span>
+                    </label>
+                    <input
+                      id="ansprechpartner"
+                      name="ansprechpartner"
+                      type="text"
+                      required
+                      value={angebotForm.ansprechpartner}
+                      onChange={handleAngebotChange}
+                      placeholder="Vor- und Nachname"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-800 placeholder-gray-400 outline-none focus:border-[#f06721] focus:ring-2 focus:ring-[#f06721]/10 transition-all"
+                    />
+                  </div>
+
+                  {/* Adresse */}
+                  <div>
+                    <label htmlFor="adresse" className="block text-[#1a214f] text-sm font-semibold mb-1.5">
+                      Adresse
+                    </label>
+                    <input
+                      id="adresse"
+                      name="adresse"
+                      type="text"
+                      value={angebotForm.adresse}
+                      onChange={handleAngebotChange}
+                      placeholder="Straße, PLZ, Ort"
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-800 placeholder-gray-400 outline-none focus:border-[#f06721] focus:ring-2 focus:ring-[#f06721]/10 transition-all"
+                    />
+                  </div>
+
+                  {/* E-Mail & Telefonnummer – 2 columns on sm+ */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                      <label htmlFor="angebot-email" className="block text-[#1a214f] text-sm font-semibold mb-1.5">
+                        E-Mail <span className="text-[#f06721]">*</span>
+                      </label>
+                      <input
+                        id="angebot-email"
+                        name="email"
+                        type="email"
+                        required
+                        value={angebotForm.email}
+                        onChange={handleAngebotChange}
+                        placeholder="name@firma.de"
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-800 placeholder-gray-400 outline-none focus:border-[#f06721] focus:ring-2 focus:ring-[#f06721]/10 transition-all"
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="telefonnummer" className="block text-[#1a214f] text-sm font-semibold mb-1.5">
+                        Telefonnummer
+                      </label>
+                      <input
+                        id="telefonnummer"
+                        name="telefonnummer"
+                        type="tel"
+                        value={angebotForm.telefonnummer}
+                        onChange={handleAngebotChange}
+                        placeholder="+49 123 456 789"
+                        className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-800 placeholder-gray-400 outline-none focus:border-[#f06721] focus:ring-2 focus:ring-[#f06721]/10 transition-all"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Art der Ware */}
+                  <div>
+                    <p className="text-[#1a214f] text-sm font-semibold mb-3">Art der Ware</p>
+                    <div className="flex flex-wrap gap-2.5">
+                      {["Stückgut", "Palette", "Maschinen", "Lebensmittel"].map((ware) => {
+                        const isSelected = angebotForm.artDerWare.includes(ware);
+                        return (
+                          <button
+                            key={ware}
+                            type="button"
+                            onClick={() => handleWareToggle(ware)}
+                            className={`px-5 py-2.5 rounded-full text-sm font-semibold border transition-all duration-200 ${
+                              isSelected
+                                ? "bg-[#f06721] text-white border-[#f06721] shadow-lg shadow-[#f06721]/20"
+                                : "bg-white text-[#1a214f] border-gray-200 hover:border-[#f06721] hover:text-[#f06721]"
+                            }`}
+                          >
+                            {ware}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+
+                  {/* Submit */}
+                  <button
+                    type="submit"
+                    disabled={angebotStatus === "loading"}
+                    className="w-full bg-[#1a214f] text-white py-3.5 rounded-full text-sm font-semibold hover:bg-[#162d52] transition-all shadow-lg shadow-[#1a214f]/20 disabled:opacity-60 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    {angebotStatus === "loading" ? (
+                      <>
+                        <svg className="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                        </svg>
+                        Wird gesendet…
+                      </>
+                    ) : (
+                      <>
+                        Angebot anfordern
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                        </svg>
+                      </>
+                    )}
+                  </button>
+
+                  {/* Success / Error messages */}
+                  {angebotStatus === "success" && (
+                    <div className="flex items-center gap-2 text-green-600 bg-green-50 rounded-xl px-4 py-3 text-sm font-medium">
+                      <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      Vielen Dank! Ihre Anfrage wurde erfolgreich gesendet.
+                    </div>
+                  )}
+                  {angebotStatus === "error" && (
+                    <div className="flex items-center gap-2 text-red-600 bg-red-50 rounded-xl px-4 py-3 text-sm font-medium">
+                      <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.
+                    </div>
+                  )}
+                </form>
+              </div>
             </div>
           </div>
         </section>

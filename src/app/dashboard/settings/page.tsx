@@ -25,6 +25,8 @@ interface GeneralSettings {
   metaKeywords: string | null;
   footerText: string | null;
   copyrightText: string | null;
+  logisticsContactEmail: string | null;
+  logisticsContactPhone: string | null;
 }
 
 export default function SettingsPage() {
@@ -52,8 +54,8 @@ export default function SettingsPage() {
     }
   };
 
-  const handleSave = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSave = async (e?: React.SyntheticEvent) => {
+    e?.preventDefault();
     setSaving(true);
 
     try {
@@ -64,9 +66,13 @@ export default function SettingsPage() {
       });
 
       if (response.ok) {
+        const data = await response.json().catch(() => null);
+        if (data) setSettings(data);
+        await fetchSettings();
         alert("Ayarlar kaydedildi!");
       } else {
-        alert("Bir hata oluştu!");
+        const err = await response.json().catch(() => null);
+        alert(err?.error || "Bir hata oluştu!");
       }
     } catch (error) {
       console.error("Error saving settings:", error);
@@ -134,13 +140,14 @@ export default function SettingsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">Site Ayarları</h1>
-          <p className="text-gray-500 mt-1">
+          <p className="text-gray-900 mt-1">
             Genel site ayarlarını buradan yönetin
           </p>
         </div>
         <button
           onClick={handleSave}
           disabled={saving}
+          type="button"
           className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2.5 rounded-lg font-medium transition-colors disabled:opacity-50 flex items-center gap-2"
         >
           {saving ? (
@@ -172,7 +179,7 @@ export default function SettingsPage() {
               className={`py-4 px-1 border-b-2 font-medium text-sm whitespace-nowrap transition-colors ${
                 activeTab === tab.id
                   ? "border-blue-500 text-blue-600"
-                  : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                  : "border-transparent text-gray-900 hover:text-gray-700 hover:border-gray-300"
               }`}
             >
               <span className="mr-2">{tab.icon}</span>
@@ -262,7 +269,7 @@ export default function SettingsPage() {
                     <input type="file" accept="image/*" className="hidden" onChange={(e) => handleLogoUpload(e, "logoAlamira")} disabled={uploadingLogo === "logoAlamira"} />
                   </label>
                   <div>
-                    <label className="block text-xs text-gray-500 mb-1">veya URL girin</label>
+                    <label className="block text-xs text-gray-900 mb-1">veya URL girin</label>
                     <input type="text" value={settings.logoAlamira || ""} onChange={(e) => updateField("logoAlamira", e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="/images/alamira-logo.png" />
                   </div>
                   {settings.logoAlamira && (
@@ -294,7 +301,7 @@ export default function SettingsPage() {
                     <input type="file" accept="image/*" className="hidden" onChange={(e) => handleLogoUpload(e, "logoLogistics")} disabled={uploadingLogo === "logoLogistics"} />
                   </label>
                   <div>
-                    <label className="block text-xs text-gray-500 mb-1">veya URL girin</label>
+                    <label className="block text-xs text-gray-900 mb-1">veya URL girin</label>
                     <input type="text" value={settings.logoLogistics || ""} onChange={(e) => updateField("logoLogistics", e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="/images/logistics-logo.png" />
                   </div>
                   {settings.logoLogistics && (
@@ -326,7 +333,7 @@ export default function SettingsPage() {
                     <input type="file" accept="image/*" className="hidden" onChange={(e) => handleLogoUpload(e, "favicon")} disabled={uploadingLogo === "favicon"} />
                   </label>
                   <div>
-                    <label className="block text-xs text-gray-500 mb-1">veya URL girin</label>
+                    <label className="block text-xs text-gray-900 mb-1">veya URL girin</label>
                     <input type="text" value={settings.favicon || ""} onChange={(e) => updateField("favicon", e.target.value)} className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="/favicon.ico" />
                   </div>
                 </div>
@@ -381,6 +388,39 @@ export default function SettingsPage() {
                 className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Tam adres bilgisi..."
               />
+            </div>
+
+            <div className="border-t border-gray-200 pt-6">
+              <h3 className="text-base font-semibold text-gray-900 mb-4">
+                Logistics Landing (Angebotformular)
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    E-posta
+                  </label>
+                  <input
+                    type="email"
+                    value={settings.logisticsContactEmail || ""}
+                    onChange={(e) => updateField("logisticsContactEmail", e.target.value)}
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="info@logicraft.de"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Telefon
+                  </label>
+                  <input
+                    type="text"
+                    value={settings.logisticsContactPhone || ""}
+                    onChange={(e) => updateField("logisticsContactPhone", e.target.value)}
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    placeholder="+49 (0) 123 456 789"
+                  />
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -504,7 +544,7 @@ export default function SettingsPage() {
                 className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Alamira Rice | Premium Basmati & Sella Rice"
               />
-              <p className="mt-1 text-sm text-gray-500">
+              <p className="mt-1 text-sm text-gray-900">
                 Tarayıcı sekmesinde ve arama sonuçlarında görünür (50-60 karakter önerilir)
               </p>
             </div>
@@ -520,7 +560,7 @@ export default function SettingsPage() {
                 className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="Site hakkında kısa açıklama..."
               />
-              <p className="mt-1 text-sm text-gray-500">
+              <p className="mt-1 text-sm text-gray-900">
                 Arama sonuçlarında gösterilir (150-160 karakter önerilir)
               </p>
             </div>
@@ -536,7 +576,7 @@ export default function SettingsPage() {
                 className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 placeholder="rice, basmati, sella, organic, premium"
               />
-              <p className="mt-1 text-sm text-gray-500">
+              <p className="mt-1 text-sm text-gray-900">
                 Virgülle ayırarak yazın
               </p>
             </div>

@@ -133,14 +133,14 @@ export default function LogisticsHeroAdmin() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto p-6">
+    <div className="max-w-3xl mx-auto">
       <ToastContainer position="top-right" autoClose={3000} />
 
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-slate-900">
           Logistics Hero Section Yönetimi
         </h2>
-        <p className="text-slate-500 text-sm mt-1">
+        <p className="text-slate-900 text-sm mt-1">
           Logistics landing sayfasının hero bölümünü buradan yönetebilirsiniz.
         </p>
       </div>
@@ -157,7 +157,7 @@ export default function LogisticsHeroAdmin() {
             value={hero.badge}
             onChange={handleChange}
             placeholder="Ör: Leading Logistics Provider"
-            className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+            className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
           />
         </div>
 
@@ -172,7 +172,7 @@ export default function LogisticsHeroAdmin() {
             value={hero.title}
             onChange={handleChange}
             placeholder="Ör: LOGI CRAFT"
-            className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+            className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
           />
         </div>
 
@@ -187,7 +187,7 @@ export default function LogisticsHeroAdmin() {
             value={hero.subtitle}
             onChange={handleChange}
             placeholder="Ör: Crafting Your Logistics Success"
-            className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+            className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
           />
         </div>
 
@@ -203,7 +203,7 @@ export default function LogisticsHeroAdmin() {
             onChange={handleChange}
             placeholder="Hero bölümünün açıklama metni..."
             rows={4}
-            className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none"
+            className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none"
           />
         </div>
 
@@ -223,7 +223,7 @@ export default function LogisticsHeroAdmin() {
 
           {hero.backgroundImage && !file && (
             <div className="mt-2">
-              <div className="text-xs text-slate-500 mb-1.5">Mevcut görsel:</div>
+              <div className="text-xs text-slate-900 mb-1.5">Mevcut görsel:</div>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={hero.backgroundImage}
@@ -234,7 +234,7 @@ export default function LogisticsHeroAdmin() {
           )}
 
           {file && (
-            <div className="mt-1 text-sm text-slate-600">
+            <div className="mt-1 text-sm text-slate-900">
               Seçilen dosya: <span className="font-medium">{file.name}</span>
             </div>
           )}
@@ -249,7 +249,7 @@ export default function LogisticsHeroAdmin() {
               value={hero.backgroundImage}
               onChange={handleChange}
               placeholder="https://images.unsplash.com/..."
-              className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+              className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
             />
           </div>
         </div>
@@ -267,7 +267,7 @@ export default function LogisticsHeroAdmin() {
             value={hero.searchPlaceholder}
             onChange={handleChange}
             placeholder="Ör: Track My Shipment"
-            className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+            className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
           />
         </div>
 
@@ -285,7 +285,7 @@ export default function LogisticsHeroAdmin() {
               value={hero.button1Text}
               onChange={handleChange}
               placeholder="Ör: Delivery & coverage"
-              className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+              className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
             />
           </div>
           <div className="flex flex-col gap-1.5">
@@ -298,7 +298,7 @@ export default function LogisticsHeroAdmin() {
               value={hero.button1Link}
               onChange={handleChange}
               placeholder="Ör: #services"
-              className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+              className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
             />
           </div>
         </div>
@@ -314,7 +314,7 @@ export default function LogisticsHeroAdmin() {
               value={hero.button2Text}
               onChange={handleChange}
               placeholder="Ör: Costs Calculators"
-              className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+              className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
             />
           </div>
           <div className="flex flex-col gap-1.5">
@@ -327,7 +327,7 @@ export default function LogisticsHeroAdmin() {
               value={hero.button2Link}
               onChange={handleChange}
               placeholder="Ör: #solutions"
-              className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+              className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
             />
           </div>
         </div>

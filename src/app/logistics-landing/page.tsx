@@ -4,9 +4,9 @@ import DrawerHeaderLayout from "../(public)/DrawerHeaderLayout";
 
 export const metadata: Metadata = {
   title:
-    "Logi Craft | Crafting Your Logistics Success — Transport, Freight & Delivery Solutions",
+    "Grainfood | Crafting Your Logistics Success — Transport, Freight & Delivery Solutions",
   description:
-    "Logi Craft delivers comprehensive logistics solutions across road, air, and sea. Track shipments in real-time, calculate costs, and experience world-class freight services for your business.",
+    "Grainfood delivers comprehensive logistics solutions across road, air, and sea. Track shipments in real-time, calculate costs, and experience world-class freight services for your business.",
   keywords: [
     "logistics",
     "freight services",
@@ -22,16 +22,16 @@ export const metadata: Metadata = {
     "delivery solutions",
   ],
   openGraph: {
-    title: "Logi Craft | Crafting Your Logistics Success",
+    title: "Grainfood | Crafting Your Logistics Success",
     description:
       "Comprehensive logistics solutions for road, air, and sea transport. Track shipments, calculate costs, and discover efficient delivery services.",
     type: "website",
     locale: "en_US",
-    siteName: "Logi Craft",
+    siteName: "Grainfood",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Logi Craft | Crafting Your Logistics Success",
+    title: "Grainfood | Crafting Your Logistics Success",
     description:
       "Comprehensive logistics solutions for road, air, and sea transport.",
   },
@@ -53,7 +53,7 @@ export default function Page() {
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Organization",
-            name: "Logi Craft",
+            name: "Grainfood",
             description:
               "Leading global logistics provider delivering comprehensive transport, freight, and supply chain solutions.",
             url: "https://logicraft.com",

@@ -104,7 +104,7 @@ export default function LogisticsServicesAdmin() {
   }
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
+    <div className="max-w-4xl mx-auto">
       <ToastContainer position="top-right" autoClose={3000} />
 
       <div className="flex items-center justify-between mb-8">
@@ -112,7 +112,7 @@ export default function LogisticsServicesAdmin() {
           <h2 className="text-2xl font-bold text-slate-900">
             Logistics Services Yönetimi
           </h2>
-          <p className="text-slate-500 text-sm mt-1">
+          <p className="text-slate-900 text-sm mt-1">
             Soldaki sekme öğeleri ve sağ taraftaki içerikleri buradan yönetebilirsiniz.
           </p>
         </div>
@@ -144,7 +144,7 @@ export default function LogisticsServicesAdmin() {
               </span>
               <div>
                 <h3 className="font-semibold text-slate-900">{item.label}</h3>
-                <p className="text-sm text-slate-500 line-clamp-1 max-w-md">
+                <p className="text-sm text-slate-900 line-clamp-1 max-w-md">
                   {item.title.replace(/\n/g, " ")}
                 </p>
               </div>
@@ -168,7 +168,7 @@ export default function LogisticsServicesAdmin() {
           </div>
         ))}
         {items.length === 0 && (
-          <p className="text-center text-slate-400 py-10">Henüz servis eklenmemiş.</p>
+          <p className="text-center text-slate-700 py-10">Henüz servis eklenmemiş.</p>
         )}
       </div>
 
@@ -190,7 +190,7 @@ export default function LogisticsServicesAdmin() {
                   value={editing.number}
                   onChange={handleChange}
                   placeholder="01"
-                  className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                 />
               </div>
               <div className="flex flex-col gap-1.5">
@@ -203,7 +203,7 @@ export default function LogisticsServicesAdmin() {
                   value={editing.label}
                   onChange={handleChange}
                   placeholder="Ör: By Road"
-                  className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                 />
               </div>
               <div className="flex flex-col gap-1.5">
@@ -216,7 +216,7 @@ export default function LogisticsServicesAdmin() {
                   type="number"
                   value={editing.order}
                   onChange={handleChange}
-                  className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                 />
               </div>
             </div>
@@ -232,9 +232,9 @@ export default function LogisticsServicesAdmin() {
                 onChange={handleChange}
                 placeholder="Her satır yeni bir satırda görünür"
                 rows={3}
-                className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none"
+                className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none"
               />
-              <span className="text-xs text-slate-400">Her satır ayrı bir satır olarak gösterilir.</span>
+              <span className="text-xs text-slate-700">Her satır ayrı bir satır olarak gösterilir.</span>
             </div>
 
             <div className="flex flex-col gap-1.5">
@@ -248,7 +248,7 @@ export default function LogisticsServicesAdmin() {
                 onChange={handleChange}
                 placeholder="Servis açıklaması..."
                 rows={4}
-                className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none"
+                className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none resize-none"
               />
             </div>
 
@@ -263,7 +263,7 @@ export default function LogisticsServicesAdmin() {
                   value={editing.buttonText}
                   onChange={handleChange}
                   placeholder="More Info"
-                  className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                 />
               </div>
               <div className="flex flex-col gap-1.5">
@@ -276,7 +276,7 @@ export default function LogisticsServicesAdmin() {
                   value={editing.buttonLink}
                   onChange={handleChange}
                   placeholder="#contact"
-                  className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
+                  className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none"
                 />
               </div>
             </div>

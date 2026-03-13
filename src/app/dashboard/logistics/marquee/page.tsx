@@ -76,13 +76,13 @@ export default function LogisticsMarqueeAdmin() {
   }
 
   return (
-    <div className="max-w-3xl mx-auto p-6">
+    <div className="max-w-3xl mx-auto">
       <ToastContainer position="top-right" autoClose={3000} />
 
       <div className="flex items-center justify-between mb-8">
         <div>
           <h2 className="text-2xl font-bold text-slate-900">Marquee Yönetimi</h2>
-          <p className="text-slate-500 text-sm mt-1">Kayan yazı bandındaki kelimeleri buradan yönetin.</p>
+          <p className="text-slate-900 text-sm mt-1">Kayan yazı bandındaki kelimeleri buradan yönetin.</p>
         </div>
         <button
           type="button"
@@ -95,7 +95,7 @@ export default function LogisticsMarqueeAdmin() {
 
       {/* Preview */}
       <div className="bg-[#EFF6FF] rounded-xl p-4 mb-8 overflow-hidden">
-        <p className="text-xs text-slate-500 mb-2 font-medium">Önizleme</p>
+        <p className="text-xs text-slate-900 mb-2 font-medium">Önizleme</p>
         <div className="flex whitespace-nowrap animate-marquee">
           {[...words, ...words].map((w, i) => (
             <span key={`p-${i}`} className="inline-flex items-center mx-3">
@@ -115,7 +115,7 @@ export default function LogisticsMarqueeAdmin() {
             key={w.id}
             className="flex items-center gap-2 bg-white border border-slate-200 rounded-lg px-3 py-2 hover:shadow-md transition-shadow"
           >
-            <span className="text-xs text-slate-400 font-mono">{w.order}</span>
+            <span className="text-xs text-slate-700 font-mono">{w.order}</span>
             <span className="font-semibold text-slate-900">{w.word}</span>
             <button type="button" onClick={() => setEditing({ ...w })}
               className="text-blue-600 hover:bg-blue-50 rounded px-1.5 py-0.5 text-xs font-medium transition-colors">
@@ -128,7 +128,7 @@ export default function LogisticsMarqueeAdmin() {
           </div>
         ))}
         {words.length === 0 && (
-          <p className="text-center text-slate-400 py-10 w-full">Henüz kelime eklenmemiş.</p>
+          <p className="text-center text-slate-700 py-10 w-full">Henüz kelime eklenmemiş.</p>
         )}
       </div>
 
@@ -144,7 +144,7 @@ export default function LogisticsMarqueeAdmin() {
                 <label className="text-slate-900 font-medium text-sm" htmlFor="mq-word">Kelime</label>
                 <input id="mq-word" name="word" value={editing.word} onChange={handleChange}
                   placeholder="Ör: LogiCraft"
-                  className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" />
+                  className="border border-slate-300 rounded-lg p-2.5 text-slate-900 placeholder:text-black focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" />
               </div>
               <div className="flex flex-col gap-1.5">
                 <label className="text-slate-900 font-medium text-sm" htmlFor="mq-order">Sıra</label>

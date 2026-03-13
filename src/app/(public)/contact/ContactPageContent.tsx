@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
 
 interface ContactData {
@@ -158,7 +157,7 @@ export default function ContactPageContent() {
 
           {/* Main Content Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-            {/* Left Side - Contact Info & Image */}
+            {/* Left Side - Contact Info */}
             <div className="space-y-6">
               {/* Contact Info Card */}
               <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm">
@@ -284,18 +283,6 @@ export default function ContactPageContent() {
                     </div>
                   </div>
                 </div>
-              </div>
-
-              {/* Image */}
-              <div className="relative rounded-2xl overflow-hidden aspect-[4/3] bg-white">
-                <Image
-                  src={contactData?.contactImage || "/images/contact-image.jpg"}
-                  alt="Alamira Rice - İletişim"
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 50vw"
-                  priority
-                />
               </div>
             </div>
 

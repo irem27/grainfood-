@@ -5,6 +5,7 @@ import Image from "next/image";
 
 interface BrandSlide {
   id: string;
+  brand: "alamira" | "grainfood";
   title: string;
   subtitle: string | null;
   description: string | null;
@@ -74,11 +75,12 @@ export default function BrandSlidesAdmin() {
 
   return (
     <div className="space-y-8">
-      <h2 className="text-2xl font-bold mb-4">Brand Slides Yönetimi</h2>
+      <h2 className="text-2xl font-bold mb-4 text-gray-900">Brand Slides Yönetimi</h2>
       <button
         className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
         onClick={() => setEditingSlide({
           id: "",
+          brand: "alamira",
           title: "",
           subtitle: "",
           description: "",
@@ -95,12 +97,12 @@ export default function BrandSlidesAdmin() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {slides.map(slide => (
           <div key={slide.id} className="border rounded p-4 bg-white shadow">
-            <div className="mb-2 font-bold text-lg">{slide.title}</div>
+            <div className="mb-2 font-bold text-lg text-gray-900">{slide.title}</div>
             {slide.backgroundImage && (
               <Image src={slide.backgroundImage} alt={slide.title} width={300} height={120} className="rounded mb-2 object-cover" />
             )}
-            <div className="mb-2">{slide.subtitle}</div>
-            <div className="mb-2 text-sm text-gray-600">{slide.description}</div>
+            <div className="mb-2 text-gray-900">{slide.subtitle}</div>
+            <div className="mb-2 text-sm text-gray-900">{slide.description}</div>
             <button className="bg-yellow-500 text-white px-3 py-1 rounded mr-2" onClick={() => setEditingSlide(slide)}>Düzenle</button>
             <button className="bg-red-500 text-white px-3 py-1 rounded" onClick={() => deleteSlide(slide.id)}>Sil</button>
           </div>
@@ -109,8 +111,8 @@ export default function BrandSlidesAdmin() {
       {editingSlide && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
           <div className="bg-white rounded p-6 w-full max-w-lg shadow-lg relative">
-            <button className="absolute top-2 right-2 text-xl" onClick={() => setEditingSlide(null)}>×</button>
-            <h3 className="text-xl font-bold mb-4">Slide Düzenle</h3>
+            <button className="absolute top-2 right-2 text-xl text-gray-900 hover:text-gray-700" onClick={() => setEditingSlide(null)}>×</button>
+            <h3 className="text-xl font-bold mb-4 text-gray-900">Slide Düzenle</h3>
             <form
               onSubmit={e => {
                 e.preventDefault();
@@ -123,7 +125,7 @@ export default function BrandSlidesAdmin() {
                 placeholder="Başlık"
                 value={editingSlide.title || ""}
                 onChange={e => setEditingSlide({ ...editingSlide, title: e.target.value })}
-                className="w-full border rounded px-3 py-2"
+                className="w-full border rounded px-3 py-2 text-gray-900 placeholder:text-black"
                 required
               />
               <input
@@ -131,30 +133,30 @@ export default function BrandSlidesAdmin() {
                 placeholder="Alt Başlık"
                 value={editingSlide.subtitle || ""}
                 onChange={e => setEditingSlide({ ...editingSlide, subtitle: e.target.value })}
-                className="w-full border rounded px-3 py-2"
+                className="w-full border rounded px-3 py-2 text-gray-900 placeholder:text-black"
               />
               <textarea
                 placeholder="Açıklama"
                 value={editingSlide.description || ""}
                 onChange={e => setEditingSlide({ ...editingSlide, description: e.target.value })}
-                className="w-full border rounded px-3 py-2"
+                className="w-full border rounded px-3 py-2 text-gray-900 placeholder:text-black"
               />
               <input
                 type="text"
                 placeholder="Buton Metni"
                 value={editingSlide.buttonText || ""}
                 onChange={e => setEditingSlide({ ...editingSlide, buttonText: e.target.value })}
-                className="w-full border rounded px-3 py-2"
+                className="w-full border rounded px-3 py-2 text-gray-900 placeholder:text-black"
               />
               <input
                 type="text"
                 placeholder="Buton Link"
                 value={editingSlide.buttonLink || ""}
                 onChange={e => setEditingSlide({ ...editingSlide, buttonLink: e.target.value })}
-                className="w-full border rounded px-3 py-2"
+                className="w-full border rounded px-3 py-2 text-gray-900 placeholder:text-black"
               />
               <div>
-                <label className="block mb-1">Arka Plan Görseli</label>
+                <label className="block mb-1 text-gray-900 font-medium">Arka Plan Görseli</label>
                 {editingSlide.backgroundImage && (
                   <Image src={editingSlide.backgroundImage} alt="bg" width={200} height={80} className="rounded mb-2 object-cover" />
                 )}
@@ -167,14 +169,14 @@ export default function BrandSlidesAdmin() {
                       handleImageUpload(file, url => setEditingSlide({ ...editingSlide, backgroundImage: url }));
                     }
                   }}
-                  className="w-full border rounded px-3 py-2"
+                  className="w-full border rounded px-3 py-2 text-gray-900"
                 />
               </div>
               <div className="flex gap-2">
                 <select
-                  value={editingSlide.brand || "alamira"}
-                  onChange={e => setEditingSlide({ ...editingSlide, brand: e.target.value })}
-                  className="border rounded px-3 py-2"
+                  value={editingSlide.brand}
+                  onChange={e => setEditingSlide({ ...editingSlide, brand: e.target.value as BrandSlide["brand"] })}
+                  className="border rounded px-3 py-2 text-gray-900"
                 >
                   <option value="alamira">Alamira</option>
                   <option value="grainfood">Grainfood</option>
@@ -182,7 +184,7 @@ export default function BrandSlidesAdmin() {
                 <select
                   value={editingSlide.theme}
                   onChange={e => setEditingSlide({ ...editingSlide, theme: e.target.value })}
-                  className="border rounded px-3 py-2"
+                  className="border rounded px-3 py-2 text-gray-900"
                 >
                   <option value="light">Açık Tema</option>
                   <option value="dark">Koyu Tema</option>
@@ -190,7 +192,7 @@ export default function BrandSlidesAdmin() {
                 <select
                   value={editingSlide.accentColor}
                   onChange={e => setEditingSlide({ ...editingSlide, accentColor: e.target.value })}
-                  className="border rounded px-3 py-2"
+                  className="border rounded px-3 py-2 text-gray-900"
                 >
                   <option value="orange">Turuncu</option>
                   <option value="blue">Mavi</option>
@@ -201,7 +203,7 @@ export default function BrandSlidesAdmin() {
                 <select
                   value={editingSlide.icon}
                   onChange={e => setEditingSlide({ ...editingSlide, icon: e.target.value })}
-                  className="border rounded px-3 py-2"
+                  className="border rounded px-3 py-2 text-gray-900"
                 >
                   <option value="rice">Pirinç</option>
                   <option value="logistics">Lojistik</option>

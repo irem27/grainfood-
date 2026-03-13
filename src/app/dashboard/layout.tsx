@@ -15,7 +15,9 @@ export default function DashboardLayout({
     <div className="flex min-h-screen bg-slate-100">
       <AdminSidebar />
       <main className="flex-1 overflow-auto">
-        {children}
+        <section className="p-6 lg:p-8">
+          {children}
+        </section>
       </main>
     </div>
   );

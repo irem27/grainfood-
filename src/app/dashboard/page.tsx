@@ -9,11 +9,11 @@ const stats = [
 
 export default function DashboardPage() {
   return (
-    <div className="p-6 lg:p-8">
+    <div>
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-2xl lg:text-3xl font-bold text-slate-900">Dashboard</h1>
-        <p className="text-slate-600 mt-1">Alamira web sitesi yönetim paneline hoş geldiniz.</p>
+        <p className="text-slate-900 mt-1">Alamira web sitesi yönetim paneline hoş geldiniz.</p>
       </div>
 
       {/* Stats Grid */}
@@ -26,7 +26,7 @@ export default function DashboardPage() {
           >
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-slate-600 text-sm">{stat.title}</p>
+                <p className="text-slate-900 text-sm">{stat.title}</p>
                 <p className="text-2xl font-bold text-slate-900 mt-1">{stat.value}</p>
               </div>
               <div className={`w-12 h-12 ${stat.color} rounded-lg opacity-20`} />
@@ -50,7 +50,7 @@ export default function DashboardPage() {
             </div>
             <div>
               <p className="font-medium text-slate-900">Hero Section Düzenle</p>
-              <p className="text-sm text-slate-500">Ana sayfa banner içeriği</p>
+              <p className="text-sm text-slate-900">Ana sayfa banner içeriği</p>
             </div>
           </Link>
 
@@ -65,7 +65,7 @@ export default function DashboardPage() {
             </div>
             <div>
               <p className="font-medium text-slate-900">Ürün Ekle</p>
-              <p className="text-sm text-slate-500">Yeni ürün oluştur</p>
+              <p className="text-sm text-slate-900">Yeni ürün oluştur</p>
             </div>
           </Link>
 
@@ -80,7 +80,7 @@ export default function DashboardPage() {
             </div>
             <div>
               <p className="font-medium text-slate-900">Blog Yazısı Ekle</p>
-              <p className="text-sm text-slate-500">Yeni tarif veya yazı</p>
+              <p className="text-sm text-slate-900">Yeni tarif veya yazı</p>
             </div>
           </Link>
         </div>

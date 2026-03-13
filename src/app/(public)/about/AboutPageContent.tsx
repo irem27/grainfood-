@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, type ReactNode } from "react";
 import Image from "next/image";
 
 interface AboutData {
@@ -64,7 +64,7 @@ export default function AboutPageContent() {
     }
   };
 
-  const icons: Record<string, JSX.Element> = {
+  const icons: Record<string, ReactNode> = {
     heart: (
       <svg className="w-10 h-10 text-[#f06721]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
@@ -94,6 +94,8 @@ export default function AboutPageContent() {
       </div>
     );
   }
+
+  const showMilestones = false;
 
   return (
     <main className="bg-[#f4f4f4]">
@@ -279,6 +281,7 @@ export default function AboutPageContent() {
       </section>
 
       {/* Timeline Section */}
+      {showMilestones && (
       <section className="py-16 md:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
@@ -355,6 +358,7 @@ export default function AboutPageContent() {
           </div>
         </div>
       </section>
+      )}
 
       {/* CTA Section */}
       <section className="bg-[#f5f5f0] py-16">

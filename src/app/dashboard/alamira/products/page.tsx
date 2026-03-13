@@ -234,18 +234,18 @@ export default function ProductsEditPage() {
 
   if (loading) {
     return (
-      <div className="p-6 lg:p-8 flex items-center justify-center min-h-[400px]">
+      <div className="flex items-center justify-center min-h-[400px]">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#D4A853]" />
       </div>
     );
   }
 
   return (
-    <div className="p-6 lg:p-8">
+    <div>
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-2xl lg:text-3xl font-bold text-slate-900">Ürünler Yönetimi</h1>
-        <p className="text-slate-600 mt-1">Ürün kategorileri ve ürünleri yönetin.</p>
+        <p className="text-slate-900 mt-1">Ürün kategorileri ve ürünleri yönetin.</p>
       </div>
 
       {/* Message */}
@@ -268,7 +268,7 @@ export default function ProductsEditPage() {
             className={`px-4 py-3 font-medium text-sm border-b-2 -mb-px transition-colors ${
               activeTab === tab.id
                 ? "border-[#D4A853] text-[#D4A853]"
-                : "border-transparent text-slate-600 hover:text-slate-900"
+                : "border-transparent text-slate-900 hover:text-slate-900"
             }`}
           >
             {tab.label}
@@ -361,7 +361,7 @@ export default function ProductsEditPage() {
               <div key={cat.id} className="flex items-center justify-between p-4 border border-slate-200 rounded-lg">
                 <div>
                   <h3 className="font-medium text-slate-900">{cat.name}</h3>
-                  <p className="text-sm text-slate-500">Slug: {cat.slug} • {cat._count?.products || 0} ürün</p>
+                  <p className="text-sm text-slate-900">Slug: {cat.slug} • {cat._count?.products || 0} ürün</p>
                 </div>
                 <div className="flex gap-2">
                   <button
@@ -369,7 +369,7 @@ export default function ProductsEditPage() {
                       setEditingCategory(cat);
                       setShowCategoryModal(true);
                     }}
-                    className="p-2 text-slate-600 hover:text-[#D4A853] transition-colors"
+                    className="p-2 text-slate-900 hover:text-[#D4A853] transition-colors"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -377,7 +377,7 @@ export default function ProductsEditPage() {
                   </button>
                   <button
                     onClick={() => deleteCategory(cat.id)}
-                    className="p-2 text-slate-600 hover:text-red-500 transition-colors"
+                    className="p-2 text-slate-900 hover:text-red-500 transition-colors"
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -424,7 +424,7 @@ export default function ProductsEditPage() {
                   {product.image && getValidImageSrc(product.image, '') ? (
                     <Image src={getValidImageSrc(product.image, '/images/placeholder.jpg')} alt={product.name} fill className="object-contain p-4" />
                   ) : (
-                    <div className="flex items-center justify-center h-full text-slate-400">
+                    <div className="flex items-center justify-center h-full text-slate-700">
                       <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                       </svg>
@@ -433,14 +433,14 @@ export default function ProductsEditPage() {
                 </div>
                 <div className="p-4">
                   <h3 className="font-medium text-slate-900 truncate">{product.name}</h3>
-                  <p className="text-sm text-slate-500">{product.category?.name}</p>
+                  <p className="text-sm text-slate-900">{product.category?.name}</p>
                   <div className="flex justify-end gap-2 mt-3">
                     <button
                       onClick={() => {
                         setEditingProduct(product);
                         setShowProductModal(true);
                       }}
-                      className="p-2 text-slate-600 hover:text-[#D4A853] transition-colors"
+                      className="p-2 text-slate-900 hover:text-[#D4A853] transition-colors"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -448,7 +448,7 @@ export default function ProductsEditPage() {
                     </button>
                     <button
                       onClick={() => deleteProduct(product.id)}
-                      className="p-2 text-slate-600 hover:text-red-500 transition-colors"
+                      className="p-2 text-slate-900 hover:text-red-500 transition-colors"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -574,7 +574,7 @@ export default function ProductsEditPage() {
                     </div>
                   ) : (
                     <div className="w-32 h-32 mx-auto mb-4 bg-slate-100 rounded-lg flex items-center justify-center">
-                      <svg className="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-12 h-12 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                       </svg>
                     </div>

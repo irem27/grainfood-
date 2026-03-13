@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
+const LOGISTICS_CONTACT_EMAIL_KEY = "logisticsContactEmail";
+const LOGISTICS_CONTACT_PHONE_KEY = "logisticsContactPhone";
+
 // GET - Site ayarlarını getir (public)
 export async function GET() {
   try {
@@ -31,7 +34,16 @@ export async function GET() {
       });
     }
 
-    return NextResponse.json(settings);
+    const extra = await prisma.siteSettings.findMany({
+      where: { key: { in: [LOGISTICS_CONTACT_EMAIL_KEY, LOGISTICS_CONTACT_PHONE_KEY] } },
+    });
+    const extrasByKey = Object.fromEntries(extra.map((s) => [s.key, s.value]));
+
+    return NextResponse.json({
+      ...settings,
+      logisticsContactEmail: extrasByKey[LOGISTICS_CONTACT_EMAIL_KEY] ?? null,
+      logisticsContactPhone: extrasByKey[LOGISTICS_CONTACT_PHONE_KEY] ?? null,
+    });
   } catch (error) {
     console.error("Settings fetch error:", error);
     return NextResponse.json(

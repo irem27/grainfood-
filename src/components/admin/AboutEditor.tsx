@@ -237,7 +237,7 @@ export default function AboutEditor({
 
   if (loading) {
     return (
-      <div className="p-6 lg:p-8 flex items-center justify-center min-h-[400px]">
+      <div className="flex items-center justify-center min-h-[400px]">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2" style={{ borderColor: accentColor }} />
       </div>
     );
@@ -245,7 +245,7 @@ export default function AboutEditor({
 
   if (!aboutData) {
     return (
-      <div className="p-6 lg:p-8">
+      <div>
         <div className="bg-red-50 text-red-600 p-4 rounded-lg">Veri yüklenemedi. Lütfen sayfayı yenileyin.</div>
       </div>
     );
@@ -255,10 +255,10 @@ export default function AboutEditor({
   const ringStyle = { "--tw-ring-color": accentColor } as React.CSSProperties;
 
   return (
-    <div className="p-6 lg:p-8">
+    <div>
       <div className="mb-8">
         <h1 className="text-2xl lg:text-3xl font-bold text-slate-900">{pageTitle}</h1>
-        <p className="text-slate-600 mt-1">{pageDescription}</p>
+        <p className="text-slate-900 mt-1">{pageDescription}</p>
       </div>
 
       {message && (
@@ -414,7 +414,7 @@ export default function AboutEditor({
                       </div>
                     ) : (
                       <div className="aspect-video bg-slate-100 rounded-lg mb-4 flex items-center justify-center">
-                        <svg className="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-12 h-12 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
                       </div>
@@ -461,7 +461,7 @@ export default function AboutEditor({
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
               <div>
                 <h2 className="text-lg font-semibold text-slate-900">What Makes Us Different</h2>
-                <p className="text-slate-500 text-sm mt-1">/about sayfasındaki değerler bölümünü düzenleyin.</p>
+                <p className="text-slate-900 text-sm mt-1">/about sayfasındaki değerler bölümünü düzenleyin.</p>
               </div>
               <button
                 type="button"
@@ -475,7 +475,7 @@ export default function AboutEditor({
             </div>
 
             {valuesLoading ? (
-              <div className="text-slate-500">Yükleniyor...</div>
+              <div className="text-slate-900">Yükleniyor...</div>
             ) : (
               <div className="space-y-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -554,7 +554,7 @@ export default function AboutEditor({
                     <div key={it.id || idx} className="border border-slate-200 rounded-xl p-4">
                       <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-start">
                         <div className="lg:col-span-3">
-                          <label className="block text-xs font-semibold text-slate-600 mb-1">Başlık</label>
+                          <label className="block text-xs font-semibold text-slate-900 mb-1">Başlık</label>
                           <input
                             value={it.title}
                             onChange={(e) =>
@@ -567,7 +567,7 @@ export default function AboutEditor({
                         </div>
 
                         <div className="lg:col-span-5">
-                          <label className="block text-xs font-semibold text-slate-600 mb-1">Açıklama</label>
+                          <label className="block text-xs font-semibold text-slate-900 mb-1">Açıklama</label>
                           <input
                             value={it.description || ""}
                             onChange={(e) =>
@@ -582,7 +582,7 @@ export default function AboutEditor({
                         </div>
 
                         <div className="lg:col-span-2">
-                          <label className="block text-xs font-semibold text-slate-600 mb-1">İkon</label>
+                          <label className="block text-xs font-semibold text-slate-900 mb-1">İkon</label>
                           <select
                             value={it.icon || "heart"}
                             onChange={(e) =>
@@ -599,7 +599,7 @@ export default function AboutEditor({
                         </div>
 
                         <div className="lg:col-span-1">
-                          <label className="block text-xs font-semibold text-slate-600 mb-1">Sıra</label>
+                          <label className="block text-xs font-semibold text-slate-900 mb-1">Sıra</label>
                           <input
                             type="number"
                             value={typeof it.order === "number" ? it.order : idx}
@@ -614,7 +614,7 @@ export default function AboutEditor({
                         </div>
 
                         <div className="lg:col-span-1 flex items-center justify-between lg:justify-end gap-3">
-                          <label className="flex items-center gap-2 text-xs text-slate-600 cursor-pointer">
+                          <label className="flex items-center gap-2 text-xs text-slate-900 cursor-pointer">
                             <input
                               type="checkbox"
                               checked={it.isActive ?? true}
@@ -640,7 +640,7 @@ export default function AboutEditor({
                     </div>
                   ))}
                   {valuesItems.length === 0 && (
-                    <div className="text-sm text-slate-500">Henüz kart eklenmemiş.</div>
+                    <div className="text-sm text-slate-900">Henüz kart eklenmemiş.</div>
                   )}
                 </div>
               </div>
@@ -654,7 +654,7 @@ export default function AboutEditor({
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
               <div>
                 <h2 className="text-lg font-semibold text-slate-900">CTA (Ready to Experience...)</h2>
-                <p className="text-slate-500 text-sm mt-1">/about sayfasının en altındaki çağrı alanı.</p>
+                <p className="text-slate-900 text-sm mt-1">/about sayfasının en altındaki çağrı alanı.</p>
               </div>
               <button
                 type="button"
@@ -668,9 +668,9 @@ export default function AboutEditor({
             </div>
 
             {ctaLoading ? (
-              <div className="text-slate-500">Yükleniyor...</div>
+              <div className="text-slate-900">Yükleniyor...</div>
             ) : !ctaSection ? (
-              <div className="text-slate-500">CTA verisi yüklenemedi.</div>
+              <div className="text-slate-900">CTA verisi yüklenemedi.</div>
             ) : (
               <div className="space-y-6">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

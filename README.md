@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## im-admin (Next.js)
 
-## Getting Started
+Admin + public site built with Next.js (App Router), NextAuth and Prisma.
 
-First, run the development server:
+## Local development
+
+1) Install
+
+```bash
+npm ci
+```
+
+2) Environment
+
+- Copy `.env.example` to `.env` and fill values.
+- Required: `DATABASE_URL`, `NEXTAUTH_SECRET`.
+
+3) Prisma
+
+```bash
+npx prisma generate
+```
+
+If this is a fresh database, create and apply the initial migration (and commit `prisma/migrations`):
+
+```bash
+npx prisma migrate dev --name init
+```
+
+4) Run
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+App runs on `http://localhost:5001`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy to Vercel
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1) Push the repo to GitHub and import it in Vercel.
 
-## Learn More
+2) Set Environment Variables in Vercel (Project → Settings → Environment Variables):
 
-To learn more about Next.js, take a look at the following resources:
+- `DATABASE_URL` (PostgreSQL connection string; Vercel Postgres / Prisma Postgres recommended)
+- `DIRECT_URL` (optional but recommended for migrations)
+- `NEXTAUTH_SECRET` (required; generate a strong random value)
+- `NEXTAUTH_URL` (e.g. `https://your-domain.vercel.app`)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3) Build settings
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Build command: default is fine (`npm run build`).
+- Prisma Client is generated automatically via `postinstall` (`prisma generate`).
 
-## Deploy on Vercel
+4) Migrations (recommended)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- Create migrations locally and commit `prisma/migrations`.
+- Then run `prisma migrate deploy` during deploy (either via a Vercel build command override or a separate CI step).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Notes
+
+- `prisma/schema.prisma` is configured for PostgreSQL; SQLite is not suitable for Vercel production persistence.
