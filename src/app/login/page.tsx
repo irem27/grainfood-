@@ -40,13 +40,14 @@ export default function LoginPage() {
         redirect: false,
       });
 
-      if (result?.error || !result?.ok) {
+      if (!result || result.error || !result.ok) {
         setError("Geçersiz e-posta veya şifre");
         setIsLoading(false);
-      } else {
-        // Session oluştuktan sonra hard redirect — NextAuth v5 beta ile en güvenilir yöntem
-        window.location.href = "/dashboard";
+        return;
       }
+
+      // Hard navigate — Next router cache'ini bypass eder, session cookie'yi garantiler
+      window.location.replace("/dashboard");
     } catch (err) {
       console.error("SignIn catch error:", err);
       setError("Giriş yapılırken bir hata oluştu");
