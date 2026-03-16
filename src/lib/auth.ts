@@ -6,7 +6,7 @@ import prisma from "@/lib/prisma";
 const authSecret = process.env.NEXTAUTH_SECRET;
 
 if (!authSecret && process.env.NODE_ENV === "production") {
-  throw new Error("NEXTAUTH_SECRET must be set in production");
+  console.warn("NEXTAUTH_SECRET is not set. Authentication will fail in production until it is provided.");
 }
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
