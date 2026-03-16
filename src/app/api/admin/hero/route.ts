@@ -1,3 +1,6 @@
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
+
 // POST - Hero Section verilerini oluştur/güncelle
 export async function POST(request: Request) {
   try {
