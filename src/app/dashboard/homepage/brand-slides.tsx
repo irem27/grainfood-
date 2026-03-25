@@ -12,6 +12,7 @@ interface BrandSlide {
   buttonText: string | null;
   buttonLink: string | null;
   backgroundImage: string | null;
+  logoImage: string | null;
   theme: string;
   accentColor: string;
   icon: string;
@@ -87,6 +88,7 @@ export default function BrandSlidesAdmin() {
           buttonText: "",
           buttonLink: "",
           backgroundImage: "",
+          logoImage: null,
           theme: "dark",
           accentColor: "blue",
           icon: "default",
@@ -171,6 +173,38 @@ export default function BrandSlidesAdmin() {
                   }}
                   className="w-full border rounded px-3 py-2 text-gray-900"
                 />
+              </div>
+              <div>
+                <label className="block mb-1 text-gray-900 font-medium">
+                  Banner Logo Görseli{" "}
+                  <span className="text-sm font-normal text-gray-500">(Başlık yerine logo göstermek için)</span>
+                </label>
+                {editingSlide.logoImage && (
+                  <div className="mb-2 flex items-center gap-3">
+                    <Image src={editingSlide.logoImage} alt="logo" width={120} height={60} className="rounded object-contain bg-gray-100 p-1" />
+                    <button
+                      type="button"
+                      onClick={() => setEditingSlide({ ...editingSlide, logoImage: null })}
+                      className="text-red-500 text-sm hover:underline"
+                    >
+                      Logoyu Kaldır
+                    </button>
+                  </div>
+                )}
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={e => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      handleImageUpload(file, url => setEditingSlide({ ...editingSlide, logoImage: url }));
+                    }
+                  }}
+                  className="w-full border rounded px-3 py-2 text-gray-900"
+                />
+                {!editingSlide.logoImage && (
+                  <p className="text-xs text-gray-400 mt-1">Logo yüklenmezse başlık metni gösterilir.</p>
+                )}
               </div>
               <div className="flex gap-2">
                 <select

@@ -8,6 +8,7 @@ type HeroState = {
   title: string;
   description: string;
   image: string; // existing image URL
+  logoUrl: string; // logo URL
 };
 
 export default function GrainfoodHeroAdmin() {
@@ -15,9 +16,11 @@ export default function GrainfoodHeroAdmin() {
     title: "",
     description: "",
     image: "",
+    logoUrl: "",
   });
 
   const [file, setFile] = useState<File | null>(null);
+  const [logoFile, setLogoFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -36,6 +39,7 @@ export default function GrainfoodHeroAdmin() {
             title: data.title ?? "",
             description: data.description ?? "",
             image: data.image ?? "",
+            logoUrl: data.logoUrl ?? "",
           });
         }
       } catch {
@@ -61,8 +65,9 @@ export default function GrainfoodHeroAdmin() {
 
     try {
       let imageUrl = hero.image;
+      let logoUrl = hero.logoUrl;
 
-      // Upload new file if provided
+      // Upload new hero image if provided
       if (file) {
         const formData = new FormData();
         formData.append("file", file);
@@ -85,10 +90,33 @@ export default function GrainfoodHeroAdmin() {
         imageUrl = uploadData.url;
       }
 
+      // Upload new logo if provided
+      if (logoFile) {
+        const formData = new FormData();
+        formData.append("file", logoFile);
+        formData.append("folder", "grainfood-logos");
+
+        const uploadRes = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!uploadRes.ok) {
+          throw new Error("Logo upload failed");
+        }
+
+        const uploadData = await uploadRes.json();
+        if (!uploadData?.url) {
+          throw new Error("Logo upload response missing url");
+        }
+
+        logoUrl = uploadData.url;
+      }
+
       const res = await fetch("/api/admin/hero?brand=grainfood", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...hero, image: imageUrl }),
+        body: JSON.stringify({ ...hero, image: imageUrl, logoUrl }),
       });
 
       if (!res.ok) {
@@ -96,9 +124,9 @@ export default function GrainfoodHeroAdmin() {
         return;
       }
 
-      // Update local state with latest image URL (if uploaded)
-      setHero((prev) => ({ ...prev, image: imageUrl }));
+      setHero((prev) => ({ ...prev, image: imageUrl, logoUrl }));
       setFile(null);
+      setLogoFile(null);
 
       toast.success("Başarıyla kaydedildi!");
     } catch (err) {
@@ -176,6 +204,39 @@ export default function GrainfoodHeroAdmin() {
           {file && (
             <div className="mt-2 text-sm text-slate-900">
               Seçilen dosya: <span className="font-medium">{file.name}</span>
+            </div>
+          )}
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label className="text-slate-900 font-medium" htmlFor="logo">
+            Logo Yükle
+          </label>
+          <input
+            id="logo"
+            name="logo"
+            type="file"
+            accept="image/*"
+            onChange={(e) => setLogoFile(e.target.files?.[0] || null)}
+            className="border border-slate-300 rounded p-2 text-slate-900 file:mr-4 file:rounded file:border-0 file:bg-slate-100 file:px-3 file:py-2 file:text-slate-900 hover:file:bg-slate-200"
+          />
+
+          {/* Existing logo preview */}
+          {hero.logoUrl && !logoFile && (
+            <div className="mt-2">
+              <div className="text-sm text-slate-900 mb-2">Mevcut logo:</div>
+              <img
+                src={hero.logoUrl}
+                alt="Grainfood hero logo"
+                className="h-16 object-contain rounded border border-slate-200 bg-white"
+              />
+            </div>
+          )}
+
+          {/* New logo file preview */}
+          {logoFile && (
+            <div className="mt-2 text-sm text-slate-900">
+              Seçilen logo: <span className="font-medium">{logoFile.name}</span>
             </div>
           )}
         </div>

@@ -24,6 +24,7 @@ model HeroSection {
   backgroundImage String?
   heroImage       String?
   isActive        Boolean  @default(true)
+  logoUrl         String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }
@@ -539,6 +540,7 @@ model BrandSlide {
   buttonText      String?
   buttonLink      String?
   backgroundImage String?
+  logoImage       String?  // Logo for the banner
   theme           String   @default("dark") // "light" or "dark"
   accentColor     String   @default("blue") // orange, blue, green, purple, red
   icon            String   @default("default") // rice, logistics, default, etc.

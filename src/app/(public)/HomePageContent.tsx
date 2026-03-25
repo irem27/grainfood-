@@ -1,6 +1,7 @@
 "use client"
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { useState, useEffect, type ReactNode } from 'react'
 
 interface BrandSlide {
@@ -12,6 +13,7 @@ interface BrandSlide {
   buttonText: string | null
   buttonLink: string | null
   backgroundImage: string | null
+  logoImage: string | null
   theme: string
   accentColor: string
   icon: string
@@ -29,6 +31,7 @@ const defaultSlides: BrandSlide[] = [
     buttonText: "Explore Products",
     buttonLink: "/alamira-rice",
     backgroundImage: "/images/rice-bg.jpg",
+    logoImage: null,
     theme: "light",
     accentColor: "orange",
     icon: "rice",
@@ -43,6 +46,7 @@ const defaultSlides: BrandSlide[] = [
     buttonText: "Explore Services",
     buttonLink: "/contact",
     backgroundImage: "/images/truck-bg.jpg",
+    logoImage: null,
     theme: "dark",
     accentColor: "blue",
     icon: "logistics",
@@ -137,7 +141,19 @@ export default function HomePageContent() {
                 <div className={`absolute inset-0 transition-all duration-500 ${isLight ? (isHovered ? 'bg-gradient-to-b from-gray-100/70 via-gray-100/50 to-gray-100/70' : 'bg-gradient-to-b from-gray-100/85 via-gray-100/70 to-gray-100/85') : (isHovered ? 'bg-gradient-to-b from-slate-900/60 via-slate-900/40 to-slate-900/60' : 'bg-gradient-to-b from-slate-900/75 via-slate-900/55 to-slate-900/75')}`} />
                 {/* Content */}
                 <div className={`relative z-10 text-center px-8 py-16 max-w-lg transition-all duration-500 ${isHovered ? 'scale-105' : 'scale-100'}`}>
-                  <h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight transition-all duration-500 ${isHovered ? 'tracking-wide' : ''} ${isLight ? 'text-[#0c0f23]' : 'text-white'}`}>{slide.title}</h1>
+                  {slide.logoImage ? (
+                    <div className="mb-6 flex justify-center">
+                      <Image 
+                        src={slide.logoImage} 
+                        alt={slide.title}
+                        width={150}
+                        height={150}
+                        className="object-contain max-h-40"
+                      />
+                    </div>
+                  ) : (
+                    <h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight transition-all duration-500 ${isHovered ? 'tracking-wide' : ''} ${isLight ? 'text-[#0c0f23]' : 'text-white'}`}>{slide.title}</h1>
+                  )}
                   {slide.subtitle && <p className={`text-xl md:text-2xl font-semibold mb-6 ${isLight ? colors.text : colors.text}`}>{slide.subtitle}</p>}
                   {slide.description && <p className={`text-lg mb-10 leading-relaxed max-w-md mx-auto ${isLight ? 'text-[#868792]' : 'text-white/80'}`}>{slide.description}</p>}
                   {slide.buttonText && slide.buttonLink && (
@@ -205,7 +221,19 @@ export default function HomePageContent() {
                 <div className={`absolute inset-0 transition-all duration-500 ${isLight ? (isHovered ? 'bg-gradient-to-b from-gray-100/70 via-gray-100/50 to-gray-100/70' : 'bg-gradient-to-b from-gray-100/85 via-gray-100/70 to-gray-100/85') : (isHovered ? 'bg-gradient-to-b from-slate-900/60 via-slate-900/40 to-slate-900/60' : 'bg-gradient-to-b from-slate-900/75 via-slate-900/55 to-slate-900/75')}`} />
                 {/* Content */}
                 <div className={`relative z-10 text-center px-8 py-16 max-w-lg transition-all duration-500 ${isHovered ? 'scale-105' : 'scale-100'}`}>
-                  <h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight transition-all duration-500 ${isHovered ? 'tracking-wide' : ''} ${isLight ? 'text-[#0c0f23]' : 'text-white'}`}>{slide.title}</h1>
+                  {slide.logoImage ? (
+                    <div className="mb-6 flex justify-center">
+                      <Image 
+                        src={slide.logoImage} 
+                        alt={slide.title}
+                        width={150}
+                        height={150}
+                        className="object-contain max-h-40"
+                      />
+                    </div>
+                  ) : (
+                    <h1 className={`text-4xl md:text-5xl lg:text-6xl font-bold mb-4 tracking-tight transition-all duration-500 ${isHovered ? 'tracking-wide' : ''} ${isLight ? 'text-[#0c0f23]' : 'text-white'}`}>{slide.title}</h1>
+                  )}
                   {slide.subtitle && <p className={`text-xl md:text-2xl font-semibold mb-6 ${isLight ? colors.text : colors.text}`}>{slide.subtitle}</p>}
                   {slide.description && <p className={`text-lg mb-10 leading-relaxed max-w-md mx-auto ${isLight ? 'text-[#868792]' : 'text-white/80'}`}>{slide.description}</p>}
                   {slide.buttonText && slide.buttonLink && (

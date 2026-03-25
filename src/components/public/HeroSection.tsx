@@ -21,6 +21,7 @@ interface HeroData {
   buttonLink: string;
   backgroundImage: string;
   heroImage: string;
+  logoUrl?: string;
   isActive: boolean;
 }
 
@@ -34,6 +35,7 @@ const defaultHeroData: HeroData = {
   buttonLink: "/products",
   backgroundImage: "",
   heroImage: "/images/hero-farmer.svg",
+  logoUrl: undefined,
   isActive: true,
 };
 
@@ -60,6 +62,17 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-screen overflow-hidden bg-[#0c0f23]">
+      {/* Logo Overlay */}
+      {heroData.logoUrl && (
+        <div className="absolute top-8 left-1/2 -translate-x-1/2 z-20 flex justify-center">
+          <img
+            src={heroData.logoUrl}
+            alt="Hero Logo"
+            className="h-20 w-auto object-contain drop-shadow-lg bg-white/80 rounded-xl px-4 py-2"
+            style={{ maxWidth: 240 }}
+          />
+        </div>
+      )}
       {/* Background Pattern - Rice Field Illustration */}
       <div
         className="absolute inset-0 opacity-20"

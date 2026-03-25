@@ -5,7 +5,7 @@ export const runtime = "nodejs";
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { id, title, subtitle, description, buttonText, buttonLink, backgroundImage, heroImage, brand } = body;
+    const { id, title, subtitle, description, buttonText, buttonLink, backgroundImage, heroImage, logoUrl, brand } = body;
 
     let heroSection;
     if (id) {
@@ -20,6 +20,7 @@ export async function POST(request: Request) {
           buttonLink,
           backgroundImage,
           heroImage,
+          logoUrl,
           updatedAt: new Date(),
         },
       });
@@ -34,6 +35,7 @@ export async function POST(request: Request) {
           buttonLink,
           backgroundImage,
           heroImage,
+          logoUrl,
           isActive: true,
         },
       });
@@ -70,6 +72,7 @@ export async function GET() {
           buttonLink: "/products",
           backgroundImage: "/images/hero-bg.svg",
           heroImage: "/images/hero-farmer.svg",
+          logoUrl: "/images/logo.svg",
           isActive: true,
         },
       });
@@ -89,7 +92,7 @@ export async function GET() {
 export async function PUT(request: Request) {
   try {
     const body = await request.json();
-    const { id, title, subtitle, description, buttonText, buttonLink, backgroundImage, heroImage } = body;
+    const { id, title, subtitle, description, buttonText, buttonLink, backgroundImage, heroImage, logoUrl } = body;
 
     if (!id) {
       return NextResponse.json(
@@ -108,6 +111,7 @@ export async function PUT(request: Request) {
         buttonLink,
         backgroundImage,
         heroImage,
+        logoUrl,
         updatedAt: new Date(),
       },
     });
