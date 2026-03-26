@@ -24,7 +24,6 @@ model HeroSection {
   backgroundImage String?
   heroImage       String?
   isActive        Boolean  @default(true)
-  logoUrl         String?
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 }
