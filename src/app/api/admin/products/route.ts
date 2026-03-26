@@ -26,7 +26,7 @@ export async function GET() {
     }
 
     // Get categories with products
-    let categories = await prisma.productCategory.findMany({
+    const categories = await prisma.productCategory.findMany({
       where: { isActive: true },
       orderBy: { order: "asc" },
       include: {
@@ -36,64 +36,6 @@ export async function GET() {
         },
       },
     });
-
-    // If no categories, create defaults
-    if (categories.length === 0) {
-      const defaultCategories = [
-        { name: "Microwave Rice", slug: "microwave", order: 0 },
-        { name: "Dry Rice", slug: "dry", order: 1 },
-        { name: "Boil in Bag Rice", slug: "boil", order: 2 },
-      ];
-
-      for (const cat of defaultCategories) {
-        await prisma.productCategory.create({
-          data: cat,
-        });
-      }
-
-      // Create default products
-      const microwaveCat = await prisma.productCategory.findUnique({ where: { slug: "microwave" } });
-      const dryCat = await prisma.productCategory.findUnique({ where: { slug: "dry" } });
-      const boilCat = await prisma.productCategory.findUnique({ where: { slug: "boil" } });
-
-      if (microwaveCat) {
-        await prisma.product.createMany({
-          data: [
-            { name: "Alamira Basmati Rice 1kg", image: "/images/rice-bag-1.svg", categoryId: microwaveCat.id, order: 0 },
-            { name: "Alamira Sella Rice 2kg", image: "/images/rice-bag-2.svg", categoryId: microwaveCat.id, order: 1 },
-            { name: "Alamira Premium Rice 5kg", image: "/images/rice-bag-3.svg", categoryId: microwaveCat.id, order: 2 },
-          ],
-        });
-      }
-
-      if (dryCat) {
-        await prisma.product.createMany({
-          data: [
-            { name: "Alamira Dry Basmati 1kg", image: "/images/rice-bag-1.svg", categoryId: dryCat.id, order: 0 },
-            { name: "Alamira Dry Sella 2kg", image: "/images/rice-bag-2.svg", categoryId: dryCat.id, order: 1 },
-          ],
-        });
-      }
-
-      if (boilCat) {
-        await prisma.product.createMany({
-          data: [
-            { name: "Alamira Boil Bag Rice", image: "/images/rice-bag-3.svg", categoryId: boilCat.id, order: 0 },
-          ],
-        });
-      }
-
-      categories = await prisma.productCategory.findMany({
-        where: { isActive: true },
-        orderBy: { order: "asc" },
-        include: {
-          products: {
-            where: { isActive: true },
-            orderBy: { order: "asc" },
-          },
-        },
-      });
-    }
 
     // Get latest 10 products
     const latestProducts = await prisma.product.findMany({
