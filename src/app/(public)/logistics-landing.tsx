@@ -495,8 +495,8 @@ export default function LogisticsLandingPage() {
           </div>
         </section>
 
-        {/* ========== PROGRESS / STATS SECTION ========== */}
-        <section
+        {/* ========== PROGRESS / STATS SECTION (hidden) ========== */}
+        {false && (<section
           className="pt-6 sm:pt-8 lg:pt-10 pb-16 sm:pb-20 lg:pb-28 px-4 sm:px-6 lg:px-10 bg-[#f4f4f4]"
           aria-label="Our Progress in Numbers"
         >
@@ -558,7 +558,7 @@ export default function LogisticsLandingPage() {
               </div>
             </div>
           </div>
-        </section>
+        </section>)}
 
         {/* ========== MARQUEE DIVIDER ========== */}
         <div
@@ -605,8 +605,8 @@ export default function LogisticsLandingPage() {
           </div>
         </div>
 
-        {/* ========== HOW WE WORK ========== */}
-        <section
+        {/* ========== HOW WE WORK (hidden) ========== */}
+        {false && (<section
           id="solutions"
           className="py-16 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10 bg-[#FAFBFF]"
           aria-label="How We Work"
@@ -738,7 +738,7 @@ export default function LogisticsLandingPage() {
               })}
             </div>
           </div>
-        </section>
+        </section>)}
 
         {/* ========== LATEST NEWS ========== */}
         <section
