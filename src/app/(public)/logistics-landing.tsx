@@ -376,6 +376,190 @@ export default function LogisticsLandingPage() {
           </div>
         </section>
 
+        {/* ========== SERVICES SECTION ========== */}
+        <section
+          id="services"
+          className="py-16 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10 bg-[#f4f4f4]"
+          aria-label="Services and Transport Solutions"
+        >
+          <div className="max-w-[1320px] mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
+              {/* Left: Numbered Services (clickable tabs) */}
+              <div>
+                {(services.length > 0
+                  ? services
+                  : [
+                      { id: "f-1", number: "01", label: "By Road", title: "", description: "", buttonText: "", buttonLink: "", order: 0 },
+                      { id: "f-2", number: "02", label: "By Air", title: "", description: "", buttonText: "", buttonLink: "", order: 1 },
+                      { id: "f-3", number: "03", label: "By Sea", title: "", description: "", buttonText: "", buttonLink: "", order: 2 },
+                    ]
+                ).map((service, index, arr) => {
+                  const isActive = index === activeServiceIdx;
+                  return (
+                    <div key={service.id}>
+                      <button
+                        type="button"
+                        onClick={() => setActiveServiceIdx(index)}
+                        className="w-full flex items-center justify-between py-5 sm:py-7 group cursor-pointer text-left"
+                      >
+                        <div className="flex items-center gap-5 sm:gap-8">
+                          <span
+                            className={`text-[32px] sm:text-[40px] lg:text-[48px] font-extrabold transition-colors duration-300 ${
+                              isActive ? "text-[#f06721]" : "text-gray-200 group-hover:text-[#f06721]"
+                            }`}
+                          >
+                            {service.number}
+                          </span>
+                          <h3
+                            className={`text-lg sm:text-xl lg:text-2xl font-bold transition-colors duration-300 ${
+                              isActive ? "text-[#f06721]" : "text-[#1a214f] group-hover:text-[#f06721]"
+                            }`}
+                          >
+                            {service.label}
+                          </h3>
+                        </div>
+                        <div
+                          className={`w-10 h-10 rounded-full border flex items-center justify-center transition-all duration-300 ${
+                            isActive
+                              ? "border-[#f06721] bg-[#f06721]"
+                              : "border-gray-200 group-hover:border-[#f06721] group-hover:bg-[#f06721]"
+                          }`}
+                        >
+                          <svg
+                            className={`w-4 h-4 transition-colors duration-300 ${
+                              isActive ? "text-white" : "text-gray-400 group-hover:text-white"
+                            }`}
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M14 5l7 7m0 0l-7 7m7-7H3"
+                            />
+                          </svg>
+                        </div>
+                      </button>
+                      {index < arr.length - 1 && <div className="h-px bg-gray-200" />}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Right: Dynamic content based on active service */}
+              <div className="flex flex-col justify-center lg:pt-4">
+                <h2
+                  key={activeService?.id ?? "default-title"}
+                  className="text-[28px] sm:text-[32px] lg:text-[40px] font-extrabold text-[#1a214f] mb-5 leading-[1.15] tracking-tight animate-fade-in-up"
+                >
+                  {(activeService?.title ?? "Transport Solutions\nFor Business to Solve Any\nDelivery Problems")
+                    .split("\n")
+                    .map((line, i, arr) => (
+                      <span key={i}>
+                        {line}
+                        {i < arr.length - 1 && <br />}
+                      </span>
+                    ))}
+                </h2>
+                <p
+                  key={activeService?.id ? `${activeService.id}-desc` : "default-desc"}
+                  className="text-gray-500 text-[15px] sm:text-base mb-8 leading-relaxed max-w-lg animate-fade-in-up"
+                  style={{ animationDelay: "0.1s" }}
+                >
+                  {activeService?.description ??
+                    "Logistics is the Process of Planning, Moving, and Storing Goods and Services with Minute Attention to Details. From Packaging to Maintenance to Transportation."}
+                </p>
+                <Link
+                  href={activeService?.buttonLink ?? "#contact"}
+                  className="inline-flex items-center gap-2.5 bg-[#1a214f] text-white px-8 py-3.5 rounded-full text-sm font-semibold hover:bg-[#162d52] transition-colors w-fit shadow-lg shadow-[#1a214f]/20"
+                >
+                  {activeService?.buttonText ?? "More Info"}
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ========== PROGRESS / STATS SECTION ========== */}
+        <section
+          className="pt-6 sm:pt-8 lg:pt-10 pb-16 sm:pb-20 lg:pb-28 px-4 sm:px-6 lg:px-10 bg-[#f4f4f4]"
+          aria-label="Our Progress in Numbers"
+        >
+          <div className="max-w-[1320px] mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center">
+              {/* Left: Description */}
+              <div>
+                <h2 className="text-[28px] sm:text-[32px] lg:text-[40px] font-extrabold text-[#1a214f] mb-5 leading-[1.15] tracking-tight">
+                  {statsSection?.title ?? "Let\u2019s See Our Progress"}
+                </h2>
+                <p className="text-gray-500 text-[15px] sm:text-base mb-8 leading-relaxed max-w-lg">
+                  {statsSection?.description ??
+                    "Creating Our Counter: Taking Stock of Our Journey, Embracing Growth, and Finding the Way Forward. Let\u2019s Pause, Reflect, and Renew Our Commitment to Progress."}
+                </p>
+                <Link
+                  href={statsSection?.buttonLink ?? "#about"}
+                  className="inline-flex items-center gap-2.5 bg-[#1a214f] text-white px-8 py-3.5 rounded-full text-sm font-semibold hover:bg-[#162d52] transition-colors shadow-lg shadow-[#1a214f]/20"
+                >
+                  {statsSection?.buttonText ?? "More Info"}
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
+                  </svg>
+                </Link>
+              </div>
+
+              {/* Right: Stats Grid */}
+              <div className="grid grid-cols-2 gap-4 sm:gap-5">
+                {(statItems.length > 0
+                  ? statItems
+                  : [
+                      { id: "f-1", value: 323, suffix: "K", label: "Shipments Delivered" },
+                      { id: "f-2", value: 210, suffix: "K", label: "Happy Clients" },
+                      { id: "f-3", value: 1247, suffix: "", label: "Expert Partners" },
+                      { id: "f-4", value: 64127, suffix: "", label: "Deliveries On-Time" },
+                    ]
+                ).map((stat) => (
+                  <div
+                    key={stat.id}
+                    className="bg-white rounded-2xl p-5 sm:p-7 lg:p-8 text-center hover:bg-[#f06721]/5 transition-colors duration-300 border border-[#f06721]/10"
+                  >
+                    <span className="block text-[32px] sm:text-[40px] lg:text-[52px] font-extrabold text-[#1a214f] leading-none mb-2">
+                      <CountUp end={stat.value} suffix={stat.suffix ?? ""} />
+                    </span>
+                    <span className="text-gray-500 text-xs sm:text-sm font-medium">
+                      {stat.label}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* ========== MARQUEE DIVIDER ========== */}
         <div
           className="py-5 sm:py-6 overflow-hidden bg-[#EFF6FF]"
