@@ -232,7 +232,7 @@ export default function LogisticsLandingPage() {
           name: angebotForm.firmenname,
           email: angebotForm.email,
           phone: angebotForm.telefonnummer,
-          message: `Angebotformular\n\nFirmenname: ${angebotForm.firmenname}\nAnsprechpartner: ${angebotForm.ansprechpartner}\nAdresse: ${angebotForm.adresse}\nE-Mail: ${angebotForm.email}\nTelefonnummer: ${angebotForm.telefonnummer}\nArt der Ware: ${angebotForm.artDerWare.join(", ") || "—"}`,
+          message: `Angebotformular\n\nFirmenname: ${angebotForm.firmenname}\nAnsprechpartner: ${angebotForm.ansprechpartner}\nAdresse: ${angebotForm.adresse}\nE-Mail: ${angebotForm.email}\nTelefonnummer: ${angebotForm.telefonnummer}\nArt der Ware: ${angebotForm.artDerWare.join(", ") || "—"}\nNachricht: ${angebotForm.nachricht || "—"}`,
         }),
       });
       if (res.ok) {
@@ -912,20 +912,6 @@ export default function LogisticsLandingPage() {
 
                   {/* E-Mail & Telefonnummer – 2 columns on sm+ */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  {/* Nachricht (Müşteri mesajı) */}
-                  <div>
-                    <label htmlFor="nachricht" className="block text-[#1a214f] text-sm font-semibold mb-1.5">
-                      Nachricht
-                    </label>
-                    <textarea
-                      id="nachricht"
-                      name="nachricht"
-                      value={angebotForm.nachricht}
-                      onChange={handleAngebotChange}
-                      placeholder="Ihre Nachricht an uns..."
-                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-800 placeholder-gray-400 outline-none focus:border-[#f06721] focus:ring-2 focus:ring-[#f06721]/10 transition-all min-h-[100px]"
-                    />
-                  </div>
                     <div>
                       <label htmlFor="angebot-email" className="block text-[#1a214f] text-sm font-semibold mb-1.5">
                         E-Mail <span className="text-[#f06721]">*</span>
@@ -955,6 +941,21 @@ export default function LogisticsLandingPage() {
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-800 placeholder-gray-400 outline-none focus:border-[#f06721] focus:ring-2 focus:ring-[#f06721]/10 transition-all"
                       />
                     </div>
+                  </div>
+
+                  {/* Nachricht */}
+                  <div>
+                    <label htmlFor="nachricht" className="block text-[#1a214f] text-sm font-semibold mb-1.5">
+                      Nachricht
+                    </label>
+                    <textarea
+                      id="nachricht"
+                      name="nachricht"
+                      value={angebotForm.nachricht}
+                      onChange={handleAngebotChange}
+                      placeholder="Ihre Nachricht an uns..."
+                      className="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm text-gray-800 placeholder-gray-400 outline-none focus:border-[#f06721] focus:ring-2 focus:ring-[#f06721]/10 transition-all min-h-[100px]"
+                    />
                   </div>
 
                   {/* Art der Ware */}
