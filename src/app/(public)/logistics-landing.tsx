@@ -417,7 +417,7 @@ export default function LogisticsLandingPage() {
             </div>
           </div>
         </section>
-        */}
+        */
         <section
           id="services"
           className="py-16 sm:py-20 lg:py-28 px-4 sm:px-6 lg:px-10 bg-[#f4f4f4]"
