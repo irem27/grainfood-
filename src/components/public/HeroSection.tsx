@@ -24,6 +24,14 @@ interface HeroData {
   isActive: boolean;
 }
 
+interface Settings {
+  facebook?: string | null;
+  instagram?: string | null;
+  twitter?: string | null;
+  youtube?: string | null;
+  linkedin?: string | null;
+}
+
 // Default data for SSR and initial load
 const defaultHeroData: HeroData = {
   id: "",
@@ -37,8 +45,19 @@ const defaultHeroData: HeroData = {
   isActive: true,
 };
 
+function isValidUrl(url: string | null | undefined): boolean {
+  if (!url || url.trim() === "") return false;
+  try {
+    new URL(url);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 export default function HeroSection() {
   const [heroData, setHeroData] = useState<HeroData>(defaultHeroData);
+  const [settings, setSettings] = useState<Settings | null>(null);
 
   useEffect(() => {
     const fetchHeroData = async () => {
@@ -55,7 +74,20 @@ export default function HeroSection() {
       }
     };
 
+    const fetchSettings = async () => {
+      try {
+        const res = await fetch("/api/settings");
+        if (res.ok) {
+          const data = await res.json();
+          setSettings(data);
+        }
+      } catch (error) {
+        console.error("Settings fetch error:", error);
+      }
+    };
+
     fetchHeroData();
+    fetchSettings();
   }, []);
 
   return (
@@ -116,38 +148,21 @@ export default function HeroSection() {
 
             {/* Social Links */}
             <div className="flex flex-row gap-3 mt-4 lg:mt-8">
-              <SocialLink
-                icon="facebook"
-                href="https://facebook.com"
-                label="Facebook"
-              />
-              <SocialLink
-                icon="instagram"
-                href="https://instagram.com"
-                label="Instagram"
-              />
-              <SocialLink
-                icon="youtube"
-                href="https://youtube.com"
-                label="YouTube"
-              />
-              <SocialLink icon="x" href="https://x.com" label="X (Twitter)" />
-            </div>
-
-            {/* Page Indicator */}
-            <div className="hidden lg:flex items-center gap-2 mt-8">
-              <span className="text-white text-sm">01</span>
-              <div className="w-8 h-[2px] bg-white/30">
-                <div className="w-4 h-full bg-white" />
-              </div>
-              <span className="text-white/50 text-sm">04</span>
-            </div>
-
-            {/* Preview Images Text */}
-            <div className="hidden lg:block mt-4">
-              <span className="text-white/50 text-xs tracking-wider uppercase">
-                Preview Images
-              </span>
+              {isValidUrl(settings?.facebook) && (
+                <SocialLink icon="facebook" href={settings!.facebook!} label="Facebook" />
+              )}
+              {isValidUrl(settings?.instagram) && (
+                <SocialLink icon="instagram" href={settings!.instagram!} label="Instagram" />
+              )}
+              {isValidUrl(settings?.youtube) && (
+                <SocialLink icon="youtube" href={settings!.youtube!} label="YouTube" />
+              )}
+              {isValidUrl(settings?.twitter) && (
+                <SocialLink icon="x" href={settings!.twitter!} label="X (Twitter)" />
+              )}
+              {isValidUrl(settings?.linkedin) && (
+                <SocialLink icon="linkedin" href={settings!.linkedin!} label="LinkedIn" />
+              )}
             </div>
           </div>
 
@@ -175,67 +190,6 @@ export default function HeroSection() {
               </div>
             </div>
 
-            {/* Right Side Navigation Arrows */}
-            <div className="absolute right-0 lg:-right-8 top-1/2 -translate-y-1/2 hidden sm:flex flex-col items-center gap-4">
-              {/* Up Arrow */}
-              <button
-                className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center text-white hover:bg-white/10 transition-all"
-                aria-label="Previous slide"
-              >
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M5 10l7-7m0 0l7 7m-7-7v18"
-                  />
-                </svg>
-              </button>
-
-              {/* Chevron Arrows Decoration */}
-              <div className="flex flex-col items-center gap-1 my-4">
-                {[...Array(6)].map((_, i) => (
-                  <svg
-                    key={i}
-                    className="w-6 h-3 text-white/60"
-                    viewBox="0 0 24 12"
-                    fill="none"
-                  >
-                    <path
-                      d="M2 2L12 10L22 2"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                ))}
-              </div>
-
-              {/* Down Arrow */}
-              <button
-                className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center text-white hover:bg-white/10 transition-all"
-                aria-label="Next slide"
-              >
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 14l-7 7m0 0l-7-7m7 7V3"
-                  />
-                </svg>
-              </button>
-            </div>
           </div>
         </div>
       </div>
@@ -276,6 +230,11 @@ function SocialLink({
     x: (
       <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+      </svg>
+    ),
+    linkedin: (
+      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
       </svg>
     ),
   };
