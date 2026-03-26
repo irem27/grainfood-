@@ -1,3 +1,4 @@
+"use client";
 import type { Metadata } from "next";
 import HeroSection from "@/components/public/HeroSection";
 import AboutSection from "@/components/public/AboutSection";
