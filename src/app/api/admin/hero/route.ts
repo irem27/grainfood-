@@ -55,6 +55,20 @@ export async function POST(request: Request) {
 
 // GET - Hero Section verilerini getir
 export async function GET() {
+  const defaultHero = {
+    id: "default",
+    title: "Pure Rice, Pure Life –",
+    subtitle: "Welcome To Organic",
+    description:
+      "Grow with an earth-friendly promise. Organic rice is grown with care to ensure purity, sustainability, and natural goodness.",
+    buttonText: "Explore Our Rice Fields",
+    buttonLink: "/products",
+    backgroundImage: "",
+    heroImage: "/images/hero-farmer.svg",
+    logoUrl: "",
+    isActive: true,
+  };
+
   try {
     let heroSection = await prisma.heroSection.findFirst({
       where: { isActive: true },
@@ -63,29 +77,31 @@ export async function GET() {
 
     // Eğer veri yoksa, varsayılan değerlerle oluştur
     if (!heroSection) {
-      heroSection = await prisma.heroSection.create({
-        data: {
-          title: "Pure Rice, Pure Life – Welcome To Organic",
-          subtitle: "Explore Our Rice Fields",
-          description:
-            "Grow with an earth-friendly promise. Organic rice is grown with care to ensure purity, sustainability, and natural goodness.",
-          buttonText: "Explore Our Rice Fields",
-          buttonLink: "/products",
-          backgroundImage: "/images/hero-bg.svg",
-          heroImage: "/images/hero-farmer.svg",
-          logoUrl: "/images/logo.svg",
-          isActive: true,
-        },
-      });
+      try {
+        heroSection = await prisma.heroSection.create({
+          data: {
+            title: defaultHero.title,
+            subtitle: defaultHero.subtitle,
+            description: defaultHero.description,
+            buttonText: defaultHero.buttonText,
+            buttonLink: defaultHero.buttonLink,
+            backgroundImage: defaultHero.backgroundImage,
+            heroImage: defaultHero.heroImage,
+            logoUrl: defaultHero.logoUrl,
+            isActive: true,
+          },
+        });
+      } catch (createError) {
+        console.error("Error creating default hero:", createError);
+        return NextResponse.json(defaultHero);
+      }
     }
 
     return NextResponse.json(heroSection);
   } catch (error) {
     console.error("Error fetching hero section:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch hero section" },
-      { status: 500 }
-    );
+    // Veritabanı hatası olsa bile varsayılan veriyi döndür
+    return NextResponse.json(defaultHero);
   }
 }
 
