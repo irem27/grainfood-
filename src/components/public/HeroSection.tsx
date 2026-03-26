@@ -147,7 +147,7 @@ export default function HeroSection() {
             </div>
 
             {/* Social Links */}
-            <div className="flex flex-row gap-3 mt-4 lg:mt-8">
+            <div className="flex flex-row gap-3 mt-4 lg:mt-8 mb-8 lg:mb-12">
               {isValidUrl(settings?.facebook) && (
                 <SocialLink icon="facebook" href={settings!.facebook!} label="Facebook" />
               )}
